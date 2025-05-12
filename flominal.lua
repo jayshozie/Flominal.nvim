@@ -79,7 +79,10 @@ local toggle_terminal = function()
     end
 end
 
-flominal.toggle_terminal = toggle_terminal -- Add the function to the module
 
 vim.api.nvim_create_user_command("Flominal", toggle_terminal, {})
 vim.keymap.set({ "n", "t" }, "<M-n>", toggle_terminal, { desc = "Toggle Flominal" })
+
+Flominal.toggle_terminal = toggle_terminal -- Add the function to the module
+
+return Flominal
