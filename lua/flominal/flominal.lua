@@ -1,8 +1,7 @@
 -- Flominal.lua
+-- Yanked from TJ DeVries, thanks.
 
 local Flominal = {}
-
--- Yanked from TJ DeVries
 
 local state = {
     floating = {
