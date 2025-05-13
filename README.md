@@ -16,7 +16,7 @@ Initially stolen from TJ DeVries. I'll work on it TJ, I promise :)
 
 ### Lazy.nvim
 
-```
+```lua
 return {
     'jayshozie/Flominal.nvim',
     branch = 'main',
@@ -28,8 +28,8 @@ return {
 
 Flominal comes with the following defaults:
 
-```
-defaults = {
+```lua
+{
     width = 0.6,
     height = 0.6,
     border = "rounded",
