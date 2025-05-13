@@ -7,6 +7,7 @@ Initially stolen from TJ DeVries. I'll work on it TJ, I promise :)
 
 - Flominal is basically just a floating window working as a terminal.
 - Buffer is saved, and also can be cleaned.
+- When you open the window, either with the command or with the keymap, it automatically goes into terminal mode.
 
 ## Requirements
 
