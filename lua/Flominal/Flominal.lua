@@ -1,9 +1,10 @@
 -- Flominal.lua
 -- Yanked from TJ DeVries, thanks.
 
-local Flominal = {}
+local M = {}
 
-local default = {
+---@class Flominal.Config
+local defaults = {
     width = 0.6,
     height = 0.6,
     border = "rounded",
@@ -15,7 +16,8 @@ local default = {
     cleanup_keymap_desc = "<M-c> to cleanup Flominal",
 }
 
-local config = default
+---@type Flominal.Config
+M.options = {}
 
 
 local state = {
@@ -34,8 +36,8 @@ local function create_floating_window(opts)
     --     config.height = default.height
     -- end
 
-    local width = math.floor(vim.o.columns * config.width)
-    local height = math.floor(vim.o.lines * config.height)
+    local width = math.floor(vim.o.columns * M.options.width)
+    local height = math.floor(vim.o.lines * M.options.height)
 
     -- Calculate the position to center the window
     local col = math.floor((vim.o.columns - width) / 2)
@@ -57,7 +59,7 @@ local function create_floating_window(opts)
         col = col,
         row = row,
         style = "minimal",
-        border = "rounded",
+        border = M.options.border,
     }
 
     -- Create the floating window
@@ -67,7 +69,7 @@ local function create_floating_window(opts)
 end
 
 
-function Flominal.cleanup()
+function M.cleanup()
     if state.floating.buf ~= -1 and vim.api.nvim_buf_is_valid(state.floating.buf) then
         vim.api.nvim_buf_delete(state.floating.buf, { force = true })
         state.floating.buf = -1
@@ -80,7 +82,7 @@ function Flominal.cleanup()
 end
 
 
-function Flominal.toggle_terminal()
+function M.toggle_terminal()
     if state.floating.win ~= -1 and vim.api.nvim_win_is_valid(state.floating.win) then
         -- Window exists and is valid, hide it
         vim.api.nvim_win_hide(state.floating.win)
@@ -114,18 +116,18 @@ function Flominal.toggle_terminal()
 end
 
 
-function Flominal.setup(user_config)
-    config = vim.tbl_deep_extend("force", config, user_config or {}) or config
+function M.setup(opts)
+    M.options = vim.tbl_deep_extend("force", {}, defaults, opts or {})
 
     -- Initialize user command and keymapping
-    vim.api.nvim_create_user_command(config.command_name, Flominal.toggle_terminal, {})
-    vim.keymap.set({ "n", "t" }, config.keymap, Flominal.toggle_terminal, { desc = config.keymap_desc })
+    vim.api.nvim_create_user_command(M.options.command_name, M.toggle_terminal, {})
+    vim.keymap.set({ "n", "t" }, M.options.keymap, M.toggle_terminal, { desc = M.options.keymap_desc })
 
     -- Intended for use if the plugin crashes
-    local cleanup_command_name = config.cleanup_command_name or "FlominalClear"
-    vim.api.nvim_create_user_command(cleanup_command_name, Flominal.cleanup, { desc = "Clear last Flominal buffer/window" })
-    vim.keymap.set( { "n", "t" }, config.cleanup_keymap, Flominal.cleanup, { desc = config.cleanup_keymap_desc } )
+    local cleanup_command_name = M.options.cleanup_command_name or "FlominalClear"
+    vim.api.nvim_create_user_command(cleanup_command_name, M.cleanup, { desc = "Clear last Flominal buffer/window" })
+    vim.keymap.set( { "n", "t" }, M.options.cleanup_keymap, M.cleanup, { desc = M.options.cleanup_keymap_desc } )
 end
 
 
-return Flominal
+return M
