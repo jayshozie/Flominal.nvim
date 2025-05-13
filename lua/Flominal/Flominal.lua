@@ -15,8 +15,8 @@ local default = {
     cleanup_keymap_desc = "<M-c> to cleanup Flominal",
 }
 
-
 local config = default
+
 
 local state = {
     floating = {
@@ -115,7 +115,7 @@ end
 
 
 function Flominal.setup(user_config)
-    config = vim.tbl_deep_extend("force", config, user_config or {})
+    config = vim.tbl_deep_extend("force", config, user_config or {}) or config
 
     -- Initialize user command and keymapping
     vim.api.nvim_create_user_command(config.command_name, Flominal.toggle_terminal, {})
