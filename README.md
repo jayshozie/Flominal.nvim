@@ -7,10 +7,12 @@ Almost entirely stolen from TJ, I promise I'll work on it.
 
 ## Lazy.nvim
 
-`"jayshozie/Flominal.nvim"
+```
+'jayshozie/Flominal.nvim'
 config = function()
-    require("Flominal")
-end`
+    require('Flominal')
+end
+```
 
 # TO-DO
 
