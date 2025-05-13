@@ -5,13 +5,13 @@ local M = {}
 
 ---@class Flominal.Config
 local defaults = {
-    width = 0.6,
-    height = 0.6,
+    width = 0.6, -- 60% of the screen
+    height = 0.6, -- 60% of the screen
     border = "rounded",
-    command_name = "Flominal",
-    keymap = "<M-n>",
+    command_name = "Flominal", -- Yes, you can change the name of the command.
+    keymap = "<M-n>", -- Defaults to <M-n> (Alt+n)
     keymap_desc = "Toggle Flominal",
-    cleanup_command_name = "FlominalClear",
+    cleanup_command_name = "FlominalClear", -- Yes, you can change the clear command, too.
     cleanup_keymap = "<M-c>",
     cleanup_keymap_desc = "<M-c> to cleanup Flominal",
 }
