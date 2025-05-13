@@ -113,6 +113,7 @@ function M.toggle_terminal()
             vim.cmd("startinsert")
         end
     end
+    vim.cmd("startinsert")
 end
 
 
