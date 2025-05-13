@@ -11,7 +11,7 @@ Initially stolen from TJ DeVries. I'll work on it TJ, I promise :)
 
 ## Requirements
 
-- Neovim >= 0.11.0 (didn't check for previous version, I'll update this)
+- Neovim >= 0.11.0 (didn't check for previous versions, I'll update this)
 
 ## Installation
 
@@ -45,9 +45,17 @@ Flominal comes with the following defaults:
 
 ## Usage
 
-Use either the command or the keymap to open the floating window.
+Use either the command or the keymap to toggle the floating window of Flominal.
+
+## Contributions
+
+This is more like a personal coding project for me.
+So, mostly I'm trying to write it myself.
+However, PRs are always welcome. 
+If you would like to help me implement tab support, please let me know so that we can brainstorm about it.
 
 # TO-DO
 
+- [ ] Check required minimum Neovim version.
 - [ ] Add tab support.
 - [x] Add configuration options.
