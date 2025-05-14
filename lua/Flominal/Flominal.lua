@@ -61,7 +61,7 @@ local function create_floating_window(opts)
     if type(opts.buf) == "number" and opts.buf >= 0 and vim.api.nvim_buf_is_valid(opts.buf) then
         buf = opts.buf
     else
-        buf = vim.api.nvim_create_buf(false, true)
+        buf = vim.api.nvim_create_buf(false, false)
     end
 
     -- Define window configuration
