@@ -3,23 +3,6 @@
 
 local M = {}
 
----@class Flominal.Config
-local defaults = {
-    width = 0.6, -- 60% of the screen
-    height = 0.6, -- 60% of the screen
-    border = "rounded",
-    command_name = "Flominal", -- Yes, you can change the name of the command.
-    keymap = "<M-n>", -- Defaults to <M-n> (Alt+n)
-    keymap_desc = "Toggle Flominal",
-    cleanup_command_name = "FlominalClear", -- Yes, you can change the clear command, too.
-    cleanup_keymap = "<M-c>",
-    cleanup_keymap_desc = "<M-c> to cleanup Flominal",
-}
-
----@type Flominal.Config
-M.options = {}
-
-
 local state = {
     floating = {
         buf = -1,
@@ -69,19 +52,6 @@ local function create_floating_window(opts)
 end
 
 
-function M.cleanup()
-    if state.floating.buf ~= -1 and vim.api.nvim_buf_is_valid(state.floating.buf) then
-        vim.api.nvim_buf_delete(state.floating.buf, { force = true })
-        state.floating.buf = -1
-    end
-    if state.floating.win ~= -1 and vim.api.nvim_win_is_valid(state.floating.win) then
-        vim.api.nvim_win_close(state.floating.win, true)
-        state.floating.win = -1
-    end
-    print("Flominal: Cleared last buffer and window.")
-end
-
-
 function M.toggle_terminal()
     if state.floating.win ~= -1 and vim.api.nvim_win_is_valid(state.floating.win) then
         -- Window exists and is valid, hide it
@@ -117,17 +87,63 @@ function M.toggle_terminal()
 end
 
 
+function M.cleanup()
+    if state.floating.buf ~= -1 and vim.api.nvim_buf_is_valid(state.floating.buf) then
+        vim.api.nvim_buf_delete(state.floating.buf, { force = true })
+        state.floating.buf = -1
+    end
+    if state.floating.win ~= -1 and vim.api.nvim_win_is_valid(state.floating.win) then
+        vim.api.nvim_win_close(state.floating.win, true)
+        state.floating.win = -1
+    end
+    print("Flominal: Cleared last buffer and window.")
+end
+
+
+local defaults = {
+    terminal = {
+        width = 0.6, -- 60% of the screen
+        height = 0.6, -- 60% of the screen
+        border = "rounded",
+    },
+    toggle = {
+        command_name = "Flominal", -- Yes, you can change the name of the command.
+        keymap = "<M-n>", -- Defaults to <M-n> (Alt+n)
+        toggle_desc = "Toggle Flominal",
+    },
+    cleanup = {
+        cleanup_command_name = "FlominalClear", -- Yes, you can change the clear command, too.
+        cleanup_keymap = "<M-c>",
+        cleanup_desc = "Clear last Flominal buffer/window",
+    },
+}
+
+
+---@class Flominal.options
+---@field terminal table<number, number, string>: Window size and shape
+---@field toggle table<string, string, string>: Toggling the Flominal window
+---@field cleanup table<string, string, string>: Cleanup function
+
+---@type Flominal.options
+local options = {
+    terminal = {},
+    toggle = {},
+    cleanup = {},
+}
+
+-- Setup the plugin
+---@param opts Flominal.options
 function M.setup(opts)
-    M.options = vim.tbl_deep_extend("force", {}, defaults, opts or {})
+    options = vim.tbl_deep_extend("force", defaults, opts or {})
 
     -- Initialize user command and keymapping
-    vim.api.nvim_create_user_command(M.options.command_name, M.toggle_terminal, {})
-    vim.keymap.set({ "n", "t" }, M.options.keymap, M.toggle_terminal, { desc = M.options.keymap_desc })
+    vim.api.nvim_create_user_command(options.toggle.command_name, M.toggle_terminal, {})
+    vim.keymap.set({ "n", "t" }, options.toggle.keymap, M.toggle_terminal, { desc = options.toggle.toggle_desc })
 
     -- Intended for use if the plugin crashes
-    local cleanup_command_name = M.options.cleanup_command_name or "FlominalClear"
-    vim.api.nvim_create_user_command(cleanup_command_name, M.cleanup, { desc = "Clear last Flominal buffer/window" })
-    vim.keymap.set( { "n", "t" }, M.options.cleanup_keymap, M.cleanup, { desc = M.options.cleanup_keymap_desc } )
+    local cleanup_command_name = options.cleanup.cleanup_command_name or "FlominalClear"
+    vim.api.nvim_create_user_command(options.cleanup.cleanup_command_name, M.cleanup, { desc = options.cleanup.cleanup_desc })
+    vim.keymap.set( { "n", "t" }, options.cleanup.cleanup_keymap, M.cleanup, { desc = options.cleanup.cleanup_desc } )
 end
 
 
