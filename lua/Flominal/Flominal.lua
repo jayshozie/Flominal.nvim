@@ -1,3 +1,4 @@
+-- Flominal © 2025 by Emir Baha Yıldırım
 -- Flominal  © 2025 by Emir Baha Yıldırım is licensed under CC BY-NC-SA 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 local M = {}
@@ -61,7 +62,7 @@ local function create_floating_window(opts)
     if type(opts.buf) == "number" and opts.buf >= 0 and vim.api.nvim_buf_is_valid(opts.buf) then
         buf = opts.buf
     else
-        buf = vim.api.nvim_create_buf(false, false)
+        buf = vim.api.nvim_create_buf(false, true)
     end
 
     -- Define window configuration
