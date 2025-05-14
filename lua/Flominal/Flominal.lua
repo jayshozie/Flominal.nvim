@@ -43,7 +43,7 @@ local options = {
 }
 
 local function create_floating_window(opts)
-    opts = opts or options or {}
+    opts = opts or {}
     -- if not 0 < config.width < 1 and type(config.width) ~= "number" then
     --     config.width = default.width
     -- end
