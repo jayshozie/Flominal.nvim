@@ -74,7 +74,7 @@ local function create_floating_window(opts)
         col = col,
         row = row,
         style = "minimal",
-        border = M.options.border,
+        border = options.terminal.border,
     }
 
     -- Create the floating window
