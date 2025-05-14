@@ -1,6 +1,7 @@
 -- Flominal.lua
 -- Yanked from TJ DeVries, thanks.
 
+
 local M = {}
 
 local state = {
@@ -10,8 +11,39 @@ local state = {
     }
 }
 
+local defaults = {
+    terminal = {
+        width = 0.6, -- 60% of the screen
+        height = 0.6, -- 60% of the screen
+        border = "rounded",
+    },
+    toggle = {
+        command_name = "Flominal", -- Yes, you can change the name of the command.
+        keymap = "<M-n>", -- Defaults to <M-n> (Alt+n)
+        toggle_desc = "Toggle Flominal",
+    },
+    cleanup = {
+        cleanup_command_name = "FlominalClear", -- Yes, you can change the clear command, too.
+        cleanup_keymap = "<M-c>",
+        cleanup_desc = "Clear last Flominal buffer/window",
+    },
+}
+
+
+---@class Flominal.options
+---@field terminal table<number, number, string>: Window size and shape
+---@field toggle table<string, string, string>: Toggling the Flominal window
+---@field cleanup table<string, string, string>: Cleanup function
+
+---@type Flominal.options
+local options = {
+    terminal = {},
+    toggle = {},
+    cleanup = {},
+}
+
 local function create_floating_window(opts)
-    opts = opts or {}
+    opts = opts or options or {}
     -- if not 0 < config.width < 1 and type(config.width) ~= "number" then
     --     config.width = default.width
     -- end
@@ -19,8 +51,8 @@ local function create_floating_window(opts)
     --     config.height = default.height
     -- end
 
-    local width = math.floor(vim.o.columns * M.options.width)
-    local height = math.floor(vim.o.lines * M.options.height)
+    local width = math.floor(vim.o.columns * options.terminal.width)
+    local height = math.floor(vim.o.lines * options.terminal.height)
 
     -- Calculate the position to center the window
     local col = math.floor((vim.o.columns - width) / 2)
@@ -99,37 +131,6 @@ function M.cleanup()
     print("Flominal: Cleared last buffer and window.")
 end
 
-
-local defaults = {
-    terminal = {
-        width = 0.6, -- 60% of the screen
-        height = 0.6, -- 60% of the screen
-        border = "rounded",
-    },
-    toggle = {
-        command_name = "Flominal", -- Yes, you can change the name of the command.
-        keymap = "<M-n>", -- Defaults to <M-n> (Alt+n)
-        toggle_desc = "Toggle Flominal",
-    },
-    cleanup = {
-        cleanup_command_name = "FlominalClear", -- Yes, you can change the clear command, too.
-        cleanup_keymap = "<M-c>",
-        cleanup_desc = "Clear last Flominal buffer/window",
-    },
-}
-
-
----@class Flominal.options
----@field terminal table<number, number, string>: Window size and shape
----@field toggle table<string, string, string>: Toggling the Flominal window
----@field cleanup table<string, string, string>: Cleanup function
-
----@type Flominal.options
-local options = {
-    terminal = {},
-    toggle = {},
-    cleanup = {},
-}
 
 -- Setup the plugin
 ---@param opts Flominal.options

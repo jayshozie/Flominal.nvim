@@ -6,7 +6,8 @@ Initially stolen from TJ DeVries. I'll work on it TJ, I promise :)
 ## Features
 
 - Flominal is basically just a floating window working as a terminal.
-- Buffer is saved, and also can be cleaned.
+- I recommend you to use the keymap whether it's the default or your own.
+- Buffer is saved automatically and reused, and can be cleaned with the FlominalCleanup command or its keymap.
 - When you open the window, either with the command or with the keymap, it automatically goes into terminal mode.
 
 ## Requirements
