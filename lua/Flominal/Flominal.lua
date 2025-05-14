@@ -23,9 +23,9 @@ local defaults = {
         toggle_desc = "Toggle Flominal",
     },
     cleanup = {
-        cleanup_command_name = "FlominalClear", -- Yes, you can change the clear command, too.
+        cleanup_command_name = "FlominalClean", -- Yes, you can change the clear command, too.
         cleanup_keymap = "<M-c>",
-        cleanup_desc = "Clear last Flominal buffer/window",
+        cleanup_desc = "Clear the Flominal buffer/window",
     },
 }
 
@@ -128,7 +128,7 @@ function M.cleanup()
         vim.api.nvim_win_close(state.floating.win, true)
         state.floating.win = -1
     end
-    print("Flominal: Cleared last buffer and window.")
+    print("Flominal: Cleared the buffer and window.")
 end
 
 
@@ -142,8 +142,8 @@ function M.setup(opts)
     vim.keymap.set({ "n", "t" }, options.toggle.keymap, M.toggle_terminal, { desc = options.toggle.toggle_desc })
 
     -- Intended for use if the plugin crashes
-    local cleanup_command_name = options.cleanup.cleanup_command_name or "FlominalClear"
-    vim.api.nvim_create_user_command(options.cleanup.cleanup_command_name, M.cleanup, { desc = options.cleanup.cleanup_desc })
+    local cleanup_command_name = options.cleanup.cleanup_command_name or "FlominalClean"
+    vim.api.nvim_create_user_command(cleanup_command_name, M.cleanup, { desc = options.cleanup.cleanup_desc })
     vim.keymap.set( { "n", "t" }, options.cleanup.cleanup_keymap, M.cleanup, { desc = options.cleanup.cleanup_desc } )
 end
 
