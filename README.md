@@ -12,7 +12,7 @@ Initially stolen from TJ DeVries. I'll work on it TJ, I promise :)
 
 ## Requirements
 
-- Neovim >= 0.11.0 (didn't check for previous versions, I'll update this)
+- Neovim >= 0.11.1 (didn't check for previous versions, I'll update this)
 
 ## Installation
 
