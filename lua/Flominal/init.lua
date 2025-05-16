@@ -1,9 +1,10 @@
--- Flominal  © 2025 by Emir Baha Yıldırım is licensed under CC BY-NC-SA 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+local tabs = require("Flominal.tabs")
+local config = require("Flominal.config")
 
 local M = {}
 
-function M.setup(opts)
-    require('Flominal.Flominal').setup(opts)
+function M.setup(options)
+    config.setup(options)
 end
 
 return M
