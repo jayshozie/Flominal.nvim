@@ -148,7 +148,7 @@ end
 
 function M.init_tabs(win)
     if vim.api.nvim_win_is_valid(win) then
-        vim.api.nvim_buf_set_lines(M.state.bufs.tabs_buf, 0, -1, false, {})   -- Clear buffer
+        vim.api.nvim_buf_set_lines(M.state.bufs.tabs_buf, 0, -1, false, {}) -- Clear buffer
 
         local tab_line = ""
 
@@ -244,43 +244,60 @@ function M.new_tab()
 end
 
 function M.switch_tab(buf_name_to_switch)
-    local buf_to_switch = vim.fn.input("Enter the name or the number of the terminal: ")
-    if buf_to_switch ~= nil and buf_to_switch ~= '' then
-        if type(buf_name_to_switch) == "number" and vim.api.nvim_buf_is_valid(buf_name_to_switch) then
-            buf_to_switch = buf_name_to_switch
-        else
-            for _, buf in ipairs(M.state.bufs.all_term) do
-                local name = vim.api.nvim_buf_get_name(buf)
-                local display_name = name
-                local last_slash = string.find(name, "/[^/]*$")
-                if last_slash then
-                    display_name = string.sub(name, last_slash + 1)
-                end
-                if buf_name_to_switch == display_name then
-                    buf_to_switch = buf
-                    break
-                end
-            end
-        end
-        if buf_to_switch ~= nil then
-            if vim.api.nvim_buf_is_valid(buf_to_switch) then
-                vim.api.nvim_win_hide(M.state.wins.terminal)
-                vim.api.nvim_win_hide(M.state.wins.tabs)
-                M.state.last_term_buf = M.state.bufs.term_current
-                M.state.bufs.term_current = buf_to_switch
-                open(M.state.bufs.term_current, M.state.bufs.tabs_buf)
-                M.init_terminal(M.state.wins.terminal, M.state.bufs.term_current)
-                M.init_tabs(M.state.wins.tabs)
-            else
-                print("Flominal: Tab is not available")
-            end
-        else
-            print("Flominal: Tab not found")
-        end
-    else
-        print("Flominal: Invalid buffer name/number.")
+    buf_name_to_switch = buf_name_to_switch or nil
+
+    local buf_to_switch = nil
+    local is_valid = false
+
+    if type(buf_name_to_switch) == "number" and vim.api.nvim_buf_is_valid(buf_name_to_switch) then
+        buf_to_switch = buf_name_to_switch
+    elseif type(buf_name_to_switch) == "number" and not vim.api.nvim_buf_is_valid(buf_name_to_switch) then
+        print("Flominal: Tab not found")
+    elseif buf_name_to_switch == nil or buf_to_switch == '' then
+        buf_to_switch = vim.fn.input("Enter the name of the terminal: ")
     end
 
+    if type(buf_to_switch) == "number" and buf_to_switch ~= nil then
+        if vim.api.nvim_buf_is_valid(buf_to_switch) then
+            is_valid = true
+        else
+            is_valid = false
+            print("Flominal: Tab not found")
+        end
+    elseif buf_to_switch ~= nil or buf_to_switch ~= '' and type(buf_to_switch) == "string" then
+        for _, buf in ipairs(M.state.bufs.all_term) do
+            local name = vim.api.nvim_buf_get_name(buf)
+            local display_name = name
+            local last_slash = string.find(name, "/[^/]*$")
+            if last_slash then
+                display_name = string.sub(name, last_slash + 1)
+            end
+            if buf_name_to_switch == display_name then
+                buf_to_switch = buf
+                break
+            end
+        end
+        if vim.api.nvim_buf_is_valid(buf_to_switch) then
+            is_valid = true
+        else
+            is_valid = false
+        print("Flominal: Tab not found")
+        end
+    else
+        is_valid = false
+        print("Flominal: Tab not found")
+    end
+    if is_valid then
+        vim.api.nvim_win_hide(M.state.wins.terminal)
+        vim.api.nvim_win_hide(M.state.wins.tabs)
+        M.state.last_term_buf = M.state.bufs.term_current
+        M.state.bufs.term_current = buf_to_switch
+        open(M.state.bufs.term_current, M.state.bufs.tabs_buf)
+        M.init_terminal(M.state.wins.terminal, M.state.bufs.term_current)
+        M.init_tabs(M.state.wins.tabs)
+    else
+        print("Flominal: Tab not found")
+    end
 end
 
 function M.next_tab()
