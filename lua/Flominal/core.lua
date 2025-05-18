@@ -272,14 +272,14 @@ function M.switch_tab(buf_name_to_switch)
         buf_to_switch = vim.fn.input("Enter the name of the terminal: ")
     end
 
-    if type(buf_to_switch) == "number" and buf_to_switch ~= nil then
+    if type(buf_to_switch) == "number" and buf_to_switch ~= nil and buf_to_switch ~= '' then
         if vim.api.nvim_buf_is_valid(buf_to_switch) then
             is_valid = true
         else
             is_valid = false
             print("Flominal: Tab not found")
         end
-    elseif buf_to_switch ~= nil or buf_to_switch ~= '' and type(buf_to_switch) == "string" then
+    elseif buf_to_switch ~= nil and buf_to_switch ~= '' and type(buf_to_switch) == "string" then
         for _, buf in ipairs(M.state.bufs.all_term) do
             local name = vim.api.nvim_buf_get_name(buf)
             local display_name = name
