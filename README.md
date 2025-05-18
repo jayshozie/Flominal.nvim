@@ -105,7 +105,7 @@ Use either the corresponding command or the keymap to toggle the floating window
 
 ## License
 
-This repository is licensed under the MIT License. Check the [LICENSE](LICENSE) file for more details.
+Every file in this repository is licensed under the MIT License. Check the [LICENSE](LICENSE) file for more details.
 
 ## Contributions
 
