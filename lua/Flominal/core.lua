@@ -1,3 +1,7 @@
+-- MIT License
+-- Copyright (c) 2025 Emir Baha Yıldırım
+-- See LICENSE file for details.
+
 -- core.lua
 
 local M = {}
