@@ -103,6 +103,10 @@ Flominal comes with the following defaults:
 
 Use either the corresponding command or the keymap to toggle the floating window of Flominal.
 
+## License
+
+This repository is licensed under the MIT License. Check the [LICENSE](LICENSE) file for more details.
+
 ## Contributions
 
 This is more like a personal coding project for me.
