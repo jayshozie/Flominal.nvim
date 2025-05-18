@@ -15,6 +15,7 @@ M.options = {
         toggle = "Flominal",
         new_tab = "new_tab",
         rename_tab = "rename_tab",
+        switch_tab = "switch_tab",
         next_tab = "next_tab",
         prev_tab = "prev_tab",
         close_tab = "close_tab",
@@ -24,6 +25,7 @@ M.options = {
         k_toggle = "<M-n>",
         k_new_tab = "<M-N>",
         k_rename_tab = "<M-r>",
+        k_switch_tab = "<M-g>",
         k_next_tab = "<M-l>",
         k_prev_tab = "<M-r>",
         k_close_tab = "<M-c>",
@@ -368,7 +370,7 @@ vim.api.nvim_create_user_command('Flominal', function(opts)
     elseif subcmd == 'rename_tab' then
         M.rename_tab(M.state.bufs.term_current)
     elseif subcmd == 'switch_tab' then
-        local tab_buf = vim.fn.input("Enter the buffer name or number to switch to: ")
+        local tab_buf = vim.fn.input("Enter the name or the number of the terminal: ")
         if tab_buf ~= nil and tab_buf ~= '' then
             M.switch_tab(tab_buf)
         else

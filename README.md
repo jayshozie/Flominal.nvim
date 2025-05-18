@@ -70,9 +70,13 @@ Flominal comes with the following defaults:
         -- I do not recommend you to use new_tab for toggling the window, since
         -- it checks whether the window is open or not, and if it isn't then
         -- it doesn't do anything.
-        toggle = "Flominal", -- :Flominal will toggle the window.
+        -- You can toggle with :Flominal, then you can add whichever command
+        -- you want from the command list to execute.
+        -- Example: :Flominal new_tab
+        toggle = "Flominal",
         new_tab = "new_tab",
         rename_tab = "rename_tab",
+        switch_tab = "switch_tab", -- This is the command to switch between tabs.
         next_tab = "next_tab", -- Yes this also circles back to the first tab.
         prev_tab = "prev_tab", -- Yes this also circles back to the last tab.
         close_tab = "close_tab", -- Only works if a tab is open/on the screen.
@@ -86,6 +90,7 @@ Flominal comes with the following defaults:
         k_toggle = "<M-n>",
         k_new_tab = "<M-N>",
         k_rename_tab = "<M-r>",
+        k_switch_tab = "<M-g>",
         k_next_tab = "<M-l>",
         k_prev_tab = "<M-r>",
         k_close_tab = "<M-c>",
@@ -108,6 +113,9 @@ If you would like to help me implement tab support, please let me know so that w
 # TO-DO
 
 - [ ] Check required minimum Neovim version.
+- [ ] Make the switch_tab command accept relative tab numbers, instead of bufnrs.
+    Also this would be a good time to implement a way to see the tab numbers.
 - [ ] Add mouse support (maybe).
+- [ ] Add a way to scroll the tab bar.
 - [x] Add tab support.
 - [x] Add configuration options.
