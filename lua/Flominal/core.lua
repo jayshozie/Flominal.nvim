@@ -193,12 +193,11 @@ function M.init_terminal(win, buf)
     end
 end
 
-function M.rename_tab(buf)
-    if vim.api.nvim_buf_is_valid(buf) then
-        local old_buf_name = vim.api.nvim_buf_get_name(buf)
-        -- Takes input for renaming the tab with this layout: old_buf_name -> new_buf_name
+function M.rename_tab(buf_to_rename)
+    if vim.api.nvim_buf_is_valid(buf_to_rename) then
+        local old_buf_name = vim.api.nvim_buf_get_name(buf_to_rename)
         local new_buf_name = vim.fn.input(old_buf_name .. " -> ")
-        vim.api.nvim_buf_set_name(buf, new_buf_name)
+        vim.api.nvim_buf_set_name(buf_to_rename, new_buf_name)
         M.init_tabs(M.state.wins.tabs)
     else
         print("Flominal: Error while renaming the tab.")
@@ -245,38 +244,43 @@ function M.new_tab()
 end
 
 function M.switch_tab(buf_name_to_switch)
-    local buf_to_switch = nil
-    if type(buf_name_to_switch) == "number" and vim.api.nvim_buf_is_valid(buf_name_to_switch) then
-        buf_to_switch = buf_name_to_switch
-    else
-        for _, buf in ipairs(M.state.bufs.all_term) do
-            local name = vim.api.nvim_buf_get_name(buf)
-            local display_name = name
-            local last_slash = string.find(name, "/[^/]*$")
-            if last_slash then
-                display_name = string.sub(name, last_slash + 1)
-            end
-            if buf_name_to_switch == display_name then
-                buf_to_switch = buf
-                break
-            end
-        end
-    end
-    if buf_to_switch ~= nil then
-        if vim.api.nvim_buf_is_valid(buf_to_switch) then
-            vim.api.nvim_win_hide(M.state.wins.terminal)
-            vim.api.nvim_win_hide(M.state.wins.tabs)
-            M.state.last_term_buf = M.state.bufs.term_current
-            M.state.bufs.term_current = buf_to_switch
-            open(M.state.bufs.term_current, M.state.bufs.tabs_buf)
-            M.init_terminal(M.state.wins.terminal, M.state.bufs.term_current)
-            M.init_tabs(M.state.wins.tabs)
+    local buf_to_switch = vim.fn.input("Enter the name or the number of the terminal: ")
+    if buf_to_switch ~= nil and buf_to_switch ~= '' then
+        if type(buf_name_to_switch) == "number" and vim.api.nvim_buf_is_valid(buf_name_to_switch) then
+            buf_to_switch = buf_name_to_switch
         else
-            print("Flominal: Tab is not available")
+            for _, buf in ipairs(M.state.bufs.all_term) do
+                local name = vim.api.nvim_buf_get_name(buf)
+                local display_name = name
+                local last_slash = string.find(name, "/[^/]*$")
+                if last_slash then
+                    display_name = string.sub(name, last_slash + 1)
+                end
+                if buf_name_to_switch == display_name then
+                    buf_to_switch = buf
+                    break
+                end
+            end
+        end
+        if buf_to_switch ~= nil then
+            if vim.api.nvim_buf_is_valid(buf_to_switch) then
+                vim.api.nvim_win_hide(M.state.wins.terminal)
+                vim.api.nvim_win_hide(M.state.wins.tabs)
+                M.state.last_term_buf = M.state.bufs.term_current
+                M.state.bufs.term_current = buf_to_switch
+                open(M.state.bufs.term_current, M.state.bufs.tabs_buf)
+                M.init_terminal(M.state.wins.terminal, M.state.bufs.term_current)
+                M.init_tabs(M.state.wins.tabs)
+            else
+                print("Flominal: Tab is not available")
+            end
+        else
+            print("Flominal: Tab not found")
         end
     else
-        print("Flominal: Tab not found")
+        print("Flominal: Invalid buffer name/number.")
     end
+
 end
 
 function M.next_tab()
@@ -374,12 +378,6 @@ vim.api.nvim_create_user_command('Flominal', function(opts)
     elseif subcmd == 'rename_tab' then
         M.rename_tab(M.state.bufs.term_current)
     elseif subcmd == 'switch_tab' then
-        local tab_buf = vim.fn.input("Enter the name or the number of the terminal: ")
-        if tab_buf ~= nil and tab_buf ~= '' then
-            M.switch_tab(tab_buf)
-        else
-            print("Flominal: Invalid buffer name/number.")
-        end
     elseif subcmd == 'next_tab' then
         M.next_tab()
     elseif subcmd == 'prev_tab' then
