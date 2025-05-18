@@ -1,9 +1,9 @@
-local config = require("Flominal.config")
+local core = require("Flominal.core")
 
 local M = {}
 
-function M.setup(user_opts)
-    config.setup(user_opts)
+function M.setup(user_options)
+    core.setup(user_options)
 end
 
 return M
