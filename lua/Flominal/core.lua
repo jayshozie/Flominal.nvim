@@ -308,13 +308,26 @@ function M.switch_tab(buf_name_to_switch)
         print("Flominal: Tab not found")
     end
     if is_valid then
-        vim.api.nvim_win_hide(M.state.wins.terminal)
-        vim.api.nvim_win_hide(M.state.wins.tabs)
-        M.state.last_term_buf = M.state.bufs.term_current
-        M.state.bufs.term_current = buf_to_switch
-        open(M.state.bufs.term_current, M.state.bufs.tabs_buf)
-        M.init_terminal(M.state.wins.terminal, M.state.bufs.term_current)
-        M.init_tabs(M.state.wins.tabs)
+        if vim.api.nvim_win_is_valid(M.state.wins.terminal) and vim.api.nvim_win_is_valid(M.state.wins.tabs) then
+            vim.api.nvim_win_hide(M.state.wins.terminal)
+            vim.api.nvim_win_hide(M.state.wins.tabs)
+            M.state.bufs.last_term_buf = M.state.bufs.term_current
+            M.state.bufs.term_current = buf_to_switch
+            open(M.state.bufs.term_current, M.state.bufs.tabs_buf)
+            M.init_terminal(M.state.wins.terminal, M.state.bufs.term_current)
+            M.init_tabs(M.state.wins.tabs)
+        elseif vim.api.nvim_buf_is_valid(M.state.bufs.term_current) and vim.api.nvim_buf_is_valid(M.state.bufs.tabs_buf) and
+            not vim.api.nvim_win_is_valid(M.state.wins.terminal) and not vim.api.nvim_win_is_valid(M.state.wins.tabs) then
+
+
+            M.state.bufs.last_term_buf = M.state.bufs.term_current
+            M.state.bufs.term_current = buf_to_switch
+            open(M.state.bufs.term_current, M.state.bufs.tabs_buf)
+            M.init_terminal(M.state.wins.terminal, M.state.bufs.term_current)
+            M.init_tabs(M.state.wins.tabs)
+        else
+            print("Flominal: Error while switching the tab.")
+        end
     else
         print("Flominal: Tab not found")
     end
