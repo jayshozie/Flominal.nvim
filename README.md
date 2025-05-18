@@ -117,6 +117,7 @@ If you would like to help me implement tab support, please let me know so that w
 # TO-DO
 
 - [ ] Check required minimum Neovim version.
+- [ ] Write documentation.
 - [ ] Make the switch_tab command accept relative tab numbers, instead of bufnrs.
     Also this would be a good time to implement a way to see the tab numbers.
 - [ ] Add mouse support (maybe).
