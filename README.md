@@ -48,6 +48,10 @@ Flominal comes with the following defaults:
 
 Use either the command or the keymap to toggle the floating window of Flominal.
 
+## License
+
+Every file in this repository is licensed under the MIT license.
+
 ## Contributions
 
 This is more like a personal coding project for me.
