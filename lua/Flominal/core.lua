@@ -325,14 +325,16 @@ function M.close_tab()
     if vim.api.nvim_win_is_valid(M.state.wins.terminal) then
         if #M.state.bufs.all_term < 1 then
             print("Flominal: No tab available.")
-        else
+        elseif #M.state.bufs.all_term >= 1 then
             local last_buf = M.state.bufs.term_current
             M.next_tab()
             M.state.bufs.last_term_buf = last_buf
+            vim.api.nvim_buf_delete(M.state.bufs.last_term_buf, { force = true })
+            table.remove(M.state.bufs.all_term, M.indexOf(M.state.bufs.all_term, M.state.bufs.last_term_buf))
+            M.init_tabs(M.state.wins.tabs)
+        else
+            M.cleanup()
         end
-        vim.api.nvim_buf_delete(M.state.bufs.last_term_buf, { force = true })
-        table.remove(M.state.bufs.all_term, M.indexOf(M.state.bufs.all_term, M.state.bufs.last_term_buf))
-        M.init_tabs(M.state.wins.tabs)
     else
         print("Flominal: Cannot close a tab if it's not open")
     end
