@@ -50,7 +50,7 @@ Use either the command or the keymap to toggle the floating window of Flominal.
 
 ## License
 
-Every file in this repository is licensed under the MIT license.
+Every file in this repository is licensed under the MIT license. Check the [LICENSE](LICENSE) file for more details.
 
 ## Contributions
 
