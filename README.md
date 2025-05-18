@@ -1,28 +1,45 @@
 # Flominal
 
 This plugin provides a somewhat customizable floating terminal.
-Initially stolen from TJ DeVries. I'll work on it TJ, I promise :)
+Initially yanked from TJ DeVries. I'll work on it TJ, I promise :)
 
 ## Features
 
 - Flominal is basically just a floating window working as a terminal.
-- I recommend you to use the keymap whether it's the default or your own.
-- Buffer is saved automatically and reused, and can be cleaned with the FlominalCleanup command or its keymap.
+- You can create new tabs using `:Flominal new_tab` command or its keymap.
+- It has a separate window for a tab bar, which is placed on the top of the terminal.
+- On the tab bar, you can see the name of the tabs, and you can rename them via
+    the `:Flominal rename_tab` command or its keymap.
+- You can switch between tabs using `:Flominal switch_tab` and just writing
+    the name of the tab you want to switch to. (This is problematic if there
+    are multiple tabs with the same name.)
+- You can also switch between tabs using `:Flominal next_tab` and
+    `:Flominal prev_tab` commands or their keymaps. Their default keymaps are
+    `<M-l>` and `<M-r>` respectively, because Dvorak.
+- You can close the current terminal tab using `:Flominal close_tab` command or its keymap.
+- Buffers are saved automatically and reused, and can be cleaned with `:Flominal cleanup` command or its keymap.
 - When you open the window, either with the command or with the keymap, it automatically goes into terminal mode.
+- I recommend you to use the keymaps whether they are the defaults or your own.
 
 ## Requirements
 
-- Neovim >= 0.11.0 (didn't check for previous versions, I'll update this)
+- Neovim >= 0.11.1 (didn't check for previous versions, I'll update this)
+- Lazy.nvim (or any other plugin manager)
+- No other dependencies, I do not like dependencies.
 
 ## Installation
 
 ### Lazy.nvim
 
 ```lua
+-- Flominal.nvim
 return {
     'jayshozie/Flominal.nvim',
     branch = 'main',
-    opts  = {},
+    opts  = {
+        -- This is where you can set the configuration options.
+        -- See the Configuration section below for more details.
+    },
 }
 ```
 
@@ -31,22 +48,55 @@ return {
 Flominal comes with the following defaults:
 
 ```lua
+-- Flominal/core.lua
 {
-    width = 0.6, -- 60% of the screen
-    height = 0.6, -- 60% of the screen
-    border = "rounded",
-    command_name = "Flominal", -- Yes, you can change the name of the command.
-    keymap = "<M-n>", -- Defaults to <M-n> (Alt+n)
-    keymap_desc = "Toggle Flominal",
-    cleanup_command_name = "FlominalClear", -- Yes, you can change the clear command, too.
-    cleanup_keymap = "<M-c>",
-    cleanup_keymap_desc = "<M-c> to cleanup Flominal",
+    Flominal = {
+        width = 0.6, -- This should be in the range (0.0, 1.0)
+        height = 0.6, -- This should be in the range (0.0, 1.0)
+        border = 'rounded',
+        -- Border options are, 'none', 'single', 'double', 'rounded', 'solid', 'shadow'
+        -- These are the default options for floating windows in Neovim.
+        title = "Flominal",
+        -- Yes you can change this too, if you want to.
+        tab_name_length = 20, -- In characters
+        -- This is the maximum length of the tab name, so that you can see all
+        -- the tabs in the tab bar. If you plan to use a lot of tabs, you
+        -- can decrease this value. I have not implemented a way for the tab
+        -- bar to scroll, so if you have a lot of tabs, you will not be able to
+        -- see all of them. I will implement this in the future.
+    },
+    commands = {
+        -- These are the commands that you can use to open Flominal.
+        -- I do not recommend you to use new_tab for toggling the window, since
+        -- it checks whether the window is open or not, and if it isn't then
+        -- it doesn't do anything.
+        toggle = "Flominal", -- :Flominal will toggle the window.
+        new_tab = "new_tab",
+        rename_tab = "rename_tab",
+        next_tab = "next_tab", -- Yes this also circles back to the first tab.
+        prev_tab = "prev_tab", -- Yes this also circles back to the last tab.
+        close_tab = "close_tab", -- Only works if a tab is open/on the screen.
+        cleanup = "cleanup",
+    },
+    keymaps = {
+        -- These are the keymaps that you can use to interact with Flominal.
+        -- I do not recommend you to use the commands for that, because it
+        -- is not as convenient as using the keymaps, sorry couldn't think of
+        -- a better/shorter name for the plugin.
+        k_toggle = "<M-n>",
+        k_new_tab = "<M-N>",
+        k_rename_tab = "<M-r>",
+        k_next_tab = "<M-l>",
+        k_prev_tab = "<M-r>",
+        k_close_tab = "<M-c>",
+        k_cleanup = "<M-C>",
+    },
 }
 ```
 
 ## Usage
 
-Use either the command or the keymap to toggle the floating window of Flominal.
+Use either the corresponding command or the keymap to toggle the floating window of Flominal.
 
 ## Contributions
 
@@ -58,5 +108,6 @@ If you would like to help me implement tab support, please let me know so that w
 # TO-DO
 
 - [ ] Check required minimum Neovim version.
-- [ ] Add tab support.
+- [ ] Add mouse support (maybe).
+- [x] Add tab support.
 - [x] Add configuration options.

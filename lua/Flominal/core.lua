@@ -22,12 +22,12 @@ M.options = {
     },
     keymaps = {
         k_toggle = "<M-n>",
-        k_new_tab = "<M-a>",
+        k_new_tab = "<M-N>",
         k_rename_tab = "<M-r>",
-        k_next_tab = "<M-e>",
-        k_prev_tab = "<M-u>",
-        k_close_tab = "<M-o>",
-        k_cleanup = "<M-c>",
+        k_next_tab = "<M-l>",
+        k_prev_tab = "<M-r>",
+        k_close_tab = "<M-c>",
+        k_cleanup = "<M-C>",
     },
 
 }
