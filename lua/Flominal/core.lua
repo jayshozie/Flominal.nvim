@@ -280,23 +280,28 @@ function M.switch_tab(buf_name_to_switch)
             print("Flominal: Tab not found")
         end
     elseif buf_to_switch ~= nil and buf_to_switch ~= '' and type(buf_to_switch) == "string" then
-        for _, buf in ipairs(M.state.bufs.all_term) do
-            local name = vim.api.nvim_buf_get_name(buf)
+        for _, bufnr in ipairs(M.state.bufs.all_term) do
+            local name = vim.api.nvim_buf_get_name(bufnr)
             local display_name = name
             local last_slash = string.find(name, "/[^/]*$")
             if last_slash then
                 display_name = string.sub(name, last_slash + 1)
             end
             if buf_name_to_switch == display_name then
-                buf_to_switch = buf
+                buf_to_switch = bufnr
                 break
             end
         end
-        if vim.api.nvim_buf_is_valid(buf_to_switch) then
-            is_valid = true
+        if type(buf_to_switch) == "number" and buf_to_switch ~= nil and buf_to_switch ~= '' then
+            if vim.api.nvim_buf_is_valid(buf_to_switch) then
+                is_valid = true
+            else
+                is_valid = false
+                print("Flominal: Tab not found")
+            end
         else
             is_valid = false
-        print("Flominal: Tab not found")
+            print("Flominal: Tab not found")
         end
     else
         is_valid = false
