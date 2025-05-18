@@ -194,7 +194,22 @@ function M.init_terminal(win, buf)
 end
 
 function M.rename_tab(buf_to_rename)
-    if vim.api.nvim_buf_is_valid(buf_to_rename) then
+    buf_to_rename = buf_to_rename or M.state.bufs.term_current
+    if type(buf_to_rename) == "string" and buf_to_rename ~= nil and buf_to_rename ~= '' then
+        for i, bufnr in ipairs(M.state.bufs.all_term) do
+            local name = vim.api.nvim_buf_get_name(bufnr)
+            local display_name = name
+            local last_slash = string.find(name, "/[^/]*$")
+            if last_slash then
+                display_name = string.sub(name, last_slash + 1)
+            end
+            if buf_to_rename == display_name then
+                buf_to_rename = bufnr
+                break
+            end
+        end
+    end
+    if buf_to_rename ~= nil and buf_to_rename ~= '' and vim.api.nvim_buf_is_valid(buf_to_rename) then
         local old_buf_name = vim.api.nvim_buf_get_name(buf_to_rename)
         local new_buf_name = vim.fn.input(old_buf_name .. " -> ")
         vim.api.nvim_buf_set_name(buf_to_rename, new_buf_name)
