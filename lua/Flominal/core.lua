@@ -280,37 +280,15 @@ function M.switch_tab(buf_name_to_switch)
             print("Flominal: Tab not found, buffer number is invalid")
         end
     elseif buf_to_switch ~= nil and buf_to_switch ~= '' and type(buf_to_switch) == "string" then
-        print("Flominal: Searching for tab: " .. buf_to_switch)
-        vim.wait(2000)
-        print("Flominal: Searching tab in all buffers: " .. vim.inspect(M.state.bufs.all_term))
-        vim.wait(2000)
         for _, bufnr in ipairs(M.state.bufs.all_term) do
-            print("Flominal: Checking buffer: " .. bufnr)
-            vim.wait(2000)
             local name = vim.api.nvim_buf_get_name(bufnr)
             local display_name = name
             local last_slash = string.find(name, "/[^/]*$")
             if last_slash then
                 display_name = string.sub(name, last_slash + 1)
             end
-            print("Flominal: Checking buffer name: (" .. display_name .. ") against: (" .. buf_to_switch .. ")")
-            vim.wait(2000)
 
-            local bytes1 = {}
-            for i = 1, #buf_to_switch do
-                table.insert(bytes1, string.byte(buf_to_switch, i))
-            end
-            print("Bytes of search string:", vim.inspect(bytes1))
-            vim.wait(2000)
-
-            local bytes2 = {}
-            for i = 1, #display_name do
-                table.insert(bytes2, string.byte(display_name, i))
-            end
-            print("Bytes of display name:", vim.inspect(bytes2))
-            vim.wait(2000)
-
-            if buf_name_to_switch == display_name then
+            if buf_to_switch == display_name then
                 buf_to_switch = bufnr
                 break
             end
