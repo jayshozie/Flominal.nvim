@@ -134,7 +134,7 @@ However, PRs are always welcome.
 
 # TO-DO
 
-- [ ] Write documentation.
+- [ ] Add documentation.
 - [ ] Make the switch_tab command accept relative tab numbers, instead of bufnrs.
     Also this would be a good time to implement a way to see the tab numbers.
 - [ ] Add mouse support (maybe).
