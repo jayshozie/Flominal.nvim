@@ -285,12 +285,16 @@ function M.switch_tab(buf_name_to_switch)
         print("Flominal: Searching tab in all buffers: " .. vim.inspect(M.state.bufs.all_term))
         vim.wait(2000)
         for _, bufnr in ipairs(M.state.bufs.all_term) do
+            print("Flominal: Checking buffer: " .. bufnr)
+            vim.wait(2000)
             local name = vim.api.nvim_buf_get_name(bufnr)
             local display_name = name
             local last_slash = string.find(name, "/[^/]*$")
             if last_slash then
                 display_name = string.sub(name, last_slash + 1)
             end
+            print("Flominal: Checking buffer name: " .. display_name)
+            vim.wait(2000)
             if buf_name_to_switch == display_name then
                 buf_to_switch = bufnr
                 break
