@@ -295,6 +295,19 @@ function M.switch_tab(buf_name_to_switch)
             end
             print("Flominal: Checking buffer name: (" .. display_name .. ") against: (" .. buf_to_switch .. ")")
             vim.wait(2000)
+
+            local bytes1 = {}
+            for i = 1, #buf_to_switch do
+                table.insert(bytes1, string.byte(buf_to_switch, i))
+            end
+            print("Bytes of search string:", vim.inspect(bytes1))
+
+            local bytes2 = {}
+            for i = 1, #display_name do
+                table.insert(bytes2, string.byte(display_name, i))
+            end
+            print("Bytes of display name:", vim.inspect(bytes2))
+
             if buf_name_to_switch == display_name then
                 buf_to_switch = bufnr
                 break
@@ -328,7 +341,6 @@ function M.switch_tab(buf_name_to_switch)
             M.init_tabs(M.state.wins.tabs)
         elseif vim.api.nvim_buf_is_valid(M.state.bufs.term_current) and vim.api.nvim_buf_is_valid(M.state.bufs.tabs_buf) and
             not vim.api.nvim_win_is_valid(M.state.wins.terminal) and not vim.api.nvim_win_is_valid(M.state.wins.tabs) then
-
             M.state.bufs.last_term_buf = M.state.bufs.term_current
             M.state.bufs.term_current = buf_to_switch
             open(M.state.bufs.term_current, M.state.bufs.tabs_buf)
