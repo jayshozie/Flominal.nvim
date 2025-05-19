@@ -430,6 +430,7 @@ vim.api.nvim_create_user_command('Flominal', function(opts)
     elseif subcmd == 'rename_tab' then
         M.rename_tab(M.state.bufs.term_current)
     elseif subcmd == 'switch_tab' then
+        M.switch_tab()
     elseif subcmd == 'next_tab' then
         M.next_tab()
     elseif subcmd == 'prev_tab' then
