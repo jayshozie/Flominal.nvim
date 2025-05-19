@@ -378,7 +378,7 @@ function M.close_tab()
     if vim.api.nvim_win_is_valid(M.state.wins.terminal) then
         if #M.state.bufs.all_term < 1 then
             print("Flominal: No tab available.")
-        elseif #M.state.bufs.all_term >= 1 then
+        elseif #M.state.bufs.all_term > 1 then
             local last_buf = M.state.bufs.term_current
             M.next_tab()
             M.state.bufs.last_term_buf = last_buf
