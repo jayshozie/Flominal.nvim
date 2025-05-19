@@ -41,7 +41,7 @@ simple.
 ## Requirements
 
 - Neovim >= 0.7.0 (I may be wrong.)
-- Lazy.nvim (or any other plugin manager)
+- [lazy.nvim](https://github.com/folke/lazy.nvim) (or any other plugin manager)
 - No other dependencies, I do not like dependencies.
 
 ## Installation
