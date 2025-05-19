@@ -1,5 +1,237 @@
+*Flominal.txt*                            A floating window terminal with tabs.
+
+Author: Emir "Jayshozie" Baha Yıldırım <https://github.com/jayshozie>
+License: MIT License (see |FlominalLicense|)
+
+               ▄▄                             ▄▄                       ▄▄   ~
+   ▀███▀▀▀███▀███                             ██                     ▀███   ~
+     ██    ▀█  ██                                                      ██   ~
+     ██   █    ██   ▄██▀██▄▀████████▄█████▄ ▀███ ▀████████▄  ▄█▀██▄    ██   ~
+     ██▀▀██    ██  ██▀   ▀██ ██    ██    ██   ██   ██    ██ ██   ██    ██   ~
+     ██   █    ██  ██     ██ ██    ██    ██   ██   ██    ██  ▄█████    ██   ~
+     ██        ██  ██▄   ▄██ ██    ██    ██   ██   ██    ██ ██   ██    ██   ~
+   ▄████▄    ▄████▄ ▀█████▀▄████  ████  ████▄████▄████  ████▄████▀██▄▄████▄ ~
+
+                                   Flominal ~
+                               Over-Engineered
+                                 Multi-Tabbed
+                                 Easy-to-Use
+                            Absolutely Unnecessary
+                       Floating Window Terminal Plugin.
+
+===============================================================================
+CONTENTS                                                    *Flominal-contents*
+
+    1. Introduction .................................. |FlominalIntro|
+    2. Usage ......................................... |FlominalUsage|
+    3. Setup ......................................... |FlominalSetup|
+    4. Keymaps ....................................... |FlominalKeymaps|
+    5. Options ....................................... |FlominalOptions|
+        5.1 Flominal ................................. |FlominalOptionsFlominal|
+        5.2 Commands ................................. |FlominalOptionsCommands|
+        5.3 Keymaps .................................. |FlominalOptionsKeymaps|
+    6. License ....................................... |FlominalLicense|
+    7. Bugs .......................................... |FlominalBugs|
+    8. Contributing .................................. |FlominalContributing|
+    9. Changelog ..................................... |FlominalChangelog|
+
+===============================================================================
+1. Introduction                                                 *FlominalIntro*
+
+Flominal is a floating window terminal with tabs. It is designed to be simple
+and easy to use. It is NOT a terminal emulator. It uses the built-in vim.cmd()
+command to create terminal in separate buffers. Flominal does not have any
+external dependencies. It is written in pure Lua.
+
+===============================================================================
+2. Usage                                                        *FlominalUsage*
+
+To use Flominal, you need to have Neovim 0.7.0 or higher. It may not be as
+stable in Windows as it is on Linux machines, didn't test it.
+
+There are a lot of commands, but they are as optional as unnecessary. You can
+(and in my opinion should) use their corresponding keymaps, since you would
+use this plugin to get some terminal stuff faster, generally. I won't get into
+the keymaps in this section, you can check them out in the *FlominalMappings*
+section.
+
+`:Flominal` is the entry point to the plugin. You can use `:Flominal toggle`
+too, if you want. It will show two floating windows, one is your terminal, and
+the other is your tab bar. It automatically goes into `TERMINAL` mode every
+time you toggle Flominal. Every other functionality you use, will be done by
+adding the function right after the main command. For example to create a new
+tab, you can use:
+>
+    :Flominal new_tab
+<
+You can rename tabs, which renames the buffer too, with:
+>
+    :Flominal rename_tab
+<
+If you want to switch tabs you can use one of the following:
+>
+    :Flominal switch_tab
+    :Flominal next_tab
+    :Flominal prev_tab
+<
+What `:Flominal next_tab` and `:Flominal prev_tab` does is pretty
+straightforward, they open the next/previous tab. If you are at the last or
+first tab, and you used these commands, respectively, you would be in your
+first/last tab, respectively. What `:Flominal switch_tab` does is that it asks
+for the name or bufnr of the buffer you'd like to switch. If you didn't change
+the names of your tabs, I believe this is a good time to do that, because this
+function is a bit problematic if there are multiple tabs with the same name.
+
+If your terminal has crashed, and you want to get rid of that tab you can just
+close that tab with:
+>
+    :Flominal close_tab
+<
+Plugin crashed? First of all, please open up an issue, so that I can look into
+it, but after you do that, you can clear all buffers with this:
+>
+    :Flominal cleanup
+<
+And that's all of them. It may be a bit overwhelming or you might think, "That
+was it?", either way I think you should check their corresponding keymaps in
+*FlominalKeymaps*.
+
+===============================================================================
+3. Setup                                                        *FlominalSetup*
+
+Best way to setup Flominal is to use a package manager. Under this paragraph
+you can find an example setup using lazy.nvim; however, it is almost same with
+any other plugin manager of your choosing. Everything there is to know about
+them, can be found in |FlominalOptions|.
+>lua
+-- lazy/Flominal.lua
+return {
+    "jayshozie/Flominal.nvim",
+
+    -- To use the legacy version, you can set this to "legacy"
+    branch = "main", 
+
+    opts = {
+        Flominal = {
+            width = 0.8,
+            height = 0.8,
+            border = "rounded",
+            title = "Flominal",
+            tab_name_length = 25,
+
+            -- These configure the floating window of
+            -- Flominal, and its tabline.
+        },
+        commands = {
+            toggle = "Flominal",
+            new_tab = "Flominal new_tab",
+            rename_tab = "Flominal rename_tab",
+            switch_tab = "Flominal switch_tab",
+            next_tab = "Flominal next_tab",
+            prev_tab = "Flominal prev_tab",
+            close_tab = "Flominal close_tab",
+            cleanup = "Flominal cleanup",
+
+            -- If you don't want to use the keymaps and
+            -- want to use the commands instead, you can
+            -- shorten the commands by using this list.
+        },
+        keymaps = {
+            -- If you want to use the default of a
+            -- keymap don't include it in your config.
+
+            k_toggle = "<M-f>",
+            k_new_tab = "<M-F>",
+            k_rename_tab = "<M-r>",
+            k_switch_tab = "<M-g>",
+            k_next_tab = "<M-p>",
+            k_prev_tab = "<M-o>",
+            k_close_tab = "<M-c>",
+            k_cleanup = "<M-C>",
+
+            -- All keymap variables start with `k_`, and
+            -- then the name of the function/command.
+        },
+    },
+}
+
+===============================================================================
+4. Mappings                                                   *FlominalKeymaps* 
+
+I will give you a table of default keymaps corresponding to the commands in
+the previous section. These keymaps are designed for dvorak in mind, if you
+are using any other keyboard layout, these may not be the most optimal
+selection for you, you can change these in your configuration.
+
+        CMD .......................... KEYMAP ~
+`:Flominal` or `:Flominal toggle` ........ <M-n> ~
+`:Flominal new_tab` .................... <M-N> ~
+`:Flominal rename_tab` ................. <M-r> ~
+`:Flominal switch_tab` ................. <M-g> ~
+`:Flominal next_tab` ................... <M-u> ~
+`:Flominal prev_tab` ................... <M-e> ~
+`:Flominal close_tab` .................. <M-c> ~
+`:Flominal cleanup` .................... <M-C> ~
+
+If you want to change these, which I think you do, here is an example of how
+you can do that (this is for lazy.nvim, but it would be almost exactly the same
+with any other package manager):
+
+===============================================================================
+5. Options                                                    *FlominalOptions*
+
+These are the options you can change in your configuration file.
+
+5.1. Flominal                                       *FlominalOptionsFlominal* ~
+
+*width*
+                        This configures the default width of the floating
+                        window of the terminal. This is the same as the
+                        built-in 'winheight' option. It's value represents the
+                        percentage of your screen which the floating window of
+                        Flominal will occupy, and should be between 0.0 and
+                        1.0.
+
+*height*
+                        This configures the default height of the floating
+                        window of the terminal. This is the same as the
+                        built-in 'winheight' option. It's value represents the
+                        percentage of your screen which the floating window of
+                        Flominal will occupy, and should be between 0.0 and
+                        1.0.
+
+*border*
+                        This configures the default border type of the
+                        floating window of both the tabline window and the
+                        terminal. This is the same as the built-in 'winborder'
+                        option. The value should be one of the following:
+                        "none", "single", "double", "rounded", "solid"
+
+*title*
+                        This configures the default title of the floating
+                        window of the terminal. This is the same as the
+                        built-in 'win_title' option. The value should be a
+                        string. 
+
+*tab_name_length*
+                        This configures the maximum length of the tab names
+                        shown in the tabline. The value should be an integer.
+                        If the length of the tab name is greater than this
+                        value, it will be truncated to this length.
+
+5.2 Commands                                        *FlominalOptionsCommands* ~
+
+*toggle*
+                        This configures the command to toggle the floating
+                        window of Flominal. The value should be a string.
+
+===============================================================================
+License
+
 MIT License
 Copyright (c) 2025 Emir Baha Yıldırım
 See LICENSE file for details.
+
+vim:tw=78:ts=8:noet:ft=help:norl:
 
 
