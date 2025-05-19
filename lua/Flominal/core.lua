@@ -293,7 +293,7 @@ function M.switch_tab(buf_name_to_switch)
             if last_slash then
                 display_name = string.sub(name, last_slash + 1)
             end
-            print("Flominal: Checking buffer name: " .. display_name)
+            print("Flominal: Checking buffer name: (" .. display_name .. ") against: (" .. buf_to_switch .. ")")
             vim.wait(2000)
             if buf_name_to_switch == display_name then
                 buf_to_switch = bufnr
