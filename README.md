@@ -6,6 +6,14 @@ Initially yanked from [TJ DeVries](https://github.com/tjdevries)'s
 [video](https://www.youtube.com/watch?v=5PIiKDES_wc).
 I'll work on it TJ, I promise :)
 
+## About Legacy Version
+
+If you don't like the tab functionality, and the things come with it, you can
+use the [legacy](https://github.com/jayshozie/Flominal.nvim/tree/legacy)
+version of the plugin. However, it is not maintained anymore. Well it's not
+a big deal, since the legacy version is just a single file and incredibly
+simple.
+
 ## Features
 
 - Flominal is basically just a floating window working as a terminal.
