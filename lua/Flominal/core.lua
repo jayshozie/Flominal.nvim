@@ -301,12 +301,14 @@ function M.switch_tab(buf_name_to_switch)
                 table.insert(bytes1, string.byte(buf_to_switch, i))
             end
             print("Bytes of search string:", vim.inspect(bytes1))
+            vim.wait(2000)
 
             local bytes2 = {}
             for i = 1, #display_name do
                 table.insert(bytes2, string.byte(display_name, i))
             end
             print("Bytes of display name:", vim.inspect(bytes2))
+            vim.wait(2000)
 
             if buf_name_to_switch == display_name then
                 buf_to_switch = bufnr
