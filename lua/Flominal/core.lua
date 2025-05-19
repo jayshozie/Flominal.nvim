@@ -267,9 +267,9 @@ function M.switch_tab(buf_name_to_switch)
     if type(buf_name_to_switch) == "number" and vim.api.nvim_buf_is_valid(buf_name_to_switch) then
         buf_to_switch = buf_name_to_switch
     elseif type(buf_name_to_switch) == "number" and not vim.api.nvim_buf_is_valid(buf_name_to_switch) then
-        print("Flominal: Tab not found")
+        print("Flominal: Tab not found, buffer number is invalid")
     elseif buf_name_to_switch == nil or buf_to_switch == '' then
-        buf_to_switch = vim.fn.input("Enter the name of the terminal: ")
+        buf_to_switch = vim.fn.input("Enter the name of the tab: ")
     end
 
     if type(buf_to_switch) == "number" and buf_to_switch ~= nil and buf_to_switch ~= '' then
@@ -277,7 +277,7 @@ function M.switch_tab(buf_name_to_switch)
             is_valid = true
         else
             is_valid = false
-            print("Flominal: Tab not found")
+            print("Flominal: Tab not found, buffer number is invalid")
         end
     elseif buf_to_switch ~= nil and buf_to_switch ~= '' and type(buf_to_switch) == "string" then
         for _, bufnr in ipairs(M.state.bufs.all_term) do
@@ -297,15 +297,15 @@ function M.switch_tab(buf_name_to_switch)
                 is_valid = true
             else
                 is_valid = false
-                print("Flominal: Tab not found")
+                print("Flominal: Tab not found, buffer could not be found.")
             end
         else
             is_valid = false
-            print("Flominal: Tab not found")
+            print("Flominal: Tab not found, something went wrong.")
         end
     else
         is_valid = false
-        print("Flominal: Tab not found")
+        print("Flominal: Tab not found, buffer name is invalid.")
     end
 
     if is_valid then
@@ -329,7 +329,7 @@ function M.switch_tab(buf_name_to_switch)
             print("Flominal: Error while switching the tab.")
         end
     else
-        print("Flominal: Tab not found")
+        print("Flominal: Tab not found, something went wrong.")
     end
 end
 
