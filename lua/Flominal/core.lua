@@ -189,7 +189,7 @@ function M.init_terminal(win, buf)
             vim.cmd('startinsert')
         end
     else
-        print("Flominal: Error while initiating the terminal.")
+        vim.notify("Flominal: Error while initiating the terminal.", vim.log.levels.WARN)
     end
 end
 
@@ -215,7 +215,7 @@ function M.rename_tab(buf_to_rename)
         vim.api.nvim_buf_set_name(buf_to_rename, new_buf_name)
         M.init_tabs(M.state.wins.tabs)
     else
-        print("Flominal: Error while renaming the tab.")
+        vim.notify("Flominal: Error while renaming the tab.", vim.log.levels.WARN)
     end
 end
 
@@ -254,7 +254,7 @@ function M.new_tab()
         M.init_terminal(M.state.wins.terminal, M.state.bufs.term_current)
         M.init_tabs(M.state.wins.tabs)
     else
-        print("Flominal: Error while creating a new tab.")
+        vim.notify("Flominal: Error while creating a new tab.", vim.log.levels.WARN)
     end
 end
 
@@ -269,7 +269,7 @@ function M.switch_tab(buf_name_to_switch)
     if type(buf_name_to_switch) == "number" and vim.api.nvim_buf_is_valid(buf_name_to_switch) then
         buf_to_switch = buf_name_to_switch
     elseif type(buf_name_to_switch) == "number" and not vim.api.nvim_buf_is_valid(buf_name_to_switch) then
-        print("Flominal: Tab not found, buffer number is invalid")
+        vim.notify("Flominal: Tab not found, buffer number is invalid", vim.log.levels.WARN)
     elseif buf_name_to_switch == nil or buf_to_switch == '' then
         buf_to_switch = vim.fn.input("Enter the name of the tab: ")
     end
@@ -279,7 +279,7 @@ function M.switch_tab(buf_name_to_switch)
             is_valid = true
         else
             is_valid = false
-            print("Flominal: Tab not found, buffer number is invalid")
+            vim.notify("Flominal: Tab not found, buffer number is invalid", vim.log.levels.WARN)
         end
     elseif buf_to_switch ~= nil and buf_to_switch ~= '' and type(buf_to_switch) == "string" then
         for _, bufnr in ipairs(M.state.bufs.all_term) do
@@ -301,15 +301,15 @@ function M.switch_tab(buf_name_to_switch)
                 is_valid = true
             else
                 is_valid = false
-                print("Flominal: Tab not found, buffer could not be found.")
+                vim.notify("Flominal: Tab not found, buffer could not be found.", vim.log.levels.WARN)
             end
         else
             is_valid = false
-            print("Flominal: Tab not found, something went wrong.")
+            vim.notify("Flominal: Tab not found, something went wrong.", vim.log.levels.WARN)
         end
     else
         is_valid = false
-        print("Flominal: Tab not found, buffer name is invalid.")
+        vim.notify("Flominal: Tab not found, buffer name is invalid.", vim.log.levels.WARN)
     end
 
     if is_valid then
@@ -329,16 +329,16 @@ function M.switch_tab(buf_name_to_switch)
             M.init_terminal(M.state.wins.terminal, M.state.bufs.term_current)
             M.init_tabs(M.state.wins.tabs)
         else
-            print("Flominal: Error while switching the tab.")
+            vim.notify("Flominal: Error while switching the tab.", vim.log.levels.WARN)
         end
     else
-        print("Flominal: Tab not found, something went wrong.")
+        vim.notify("Flominal: Tab not found, something went wrong.", vim.log.levels.WARN)
     end
 end
 
 function M.next_tab()
     if #M.state.bufs.all_term <= 1 then
-        print("Flominal: No next tab")
+        vim.notify("Flominal: No next tab", vim.log.levels.WARN)
     else
         local indexOf_next_buf = M.indexOf(M.state.bufs.all_term, M.state.bufs.term_current) + 1
         if indexOf_next_buf > #M.state.bufs.all_term then
@@ -350,14 +350,14 @@ function M.next_tab()
         elseif M.indexOf(M.state.bufs.all_term, next_buf) == 1 and vim.api.nvim_buf_is_valid(next_buf) then
             M.switch_tab(next_buf)
         else
-            print("Flominal: No next tab")
+            vim.notify("Flominal: No next tab", vim.log.levels.WARN)
         end
     end
 end
 
 function M.prev_tab()
     if #M.state.bufs.all_term <= 1 then
-        print("Flominal: No previous tab")
+        vim.notify("Flominal: No previous tab", vim.log.levels.WARN)
     else
         local indexOf_prev_buf = M.indexOf(M.state.bufs.all_term, M.state.bufs.term_current) - 1
         if indexOf_prev_buf == 0 then
@@ -369,7 +369,7 @@ function M.prev_tab()
         elseif M.indexOf(M.state.bufs.all_term, prev_buf) == #M.state.bufs and vim.api.nvim_buf_is_valid(prev_buf) then
             M.switch_tab(prev_buf)
         else
-            print("Flominal: No previous tab")
+            vim.notify("Flominal: No previous tab", vim.log.levels.WARN)
         end
     end
 end
@@ -377,7 +377,7 @@ end
 function M.close_tab()
     if vim.api.nvim_win_is_valid(M.state.wins.terminal) then
         if #M.state.bufs.all_term < 1 then
-            print("Flominal: No tab available.")
+            vim.notify("Flominal: No tab available.")
         elseif #M.state.bufs.all_term > 1 then
             local last_buf = M.state.bufs.term_current
             M.next_tab()
@@ -389,7 +389,7 @@ function M.close_tab()
             M.cleanup()
         end
     else
-        print("Flominal: Cannot close a tab if it's not open")
+        vim.notify("Flominal: Cannot close a tab if it's not open", vim.log.levels.WARN)
     end
 end
 
@@ -443,7 +443,7 @@ vim.api.nvim_create_user_command('Flominal', function(opts)
     elseif subcmd == 'cleanup' then
         M.cleanup()
     else
-        print("Flominal: Unknown subcommand: " .. subcmd)
+        vim.notify("Flominal: Unknown subcommand: " .. subcmd, vim.log.levels.WARN)
     end
 end, {
     nargs = '?', -- zero or one argument
