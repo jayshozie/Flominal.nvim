@@ -23,7 +23,7 @@ Initially yanked from TJ DeVries. I'll work on it TJ, I promise :)
 
 ## Requirements
 
-- Neovim >= 0.11.1 (didn't check for previous versions, I'll update this)
+- Neovim >= 0.7.0 (I may have missed some features, but I will try to keep it compatible with older versions)
 - Lazy.nvim (or any other plugin manager)
 - No other dependencies, I do not like dependencies.
 
