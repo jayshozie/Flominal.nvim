@@ -150,7 +150,7 @@ function M.init_tabs(win)
     if vim.api.nvim_win_is_valid(win) then
         vim.api.nvim_buf_set_lines(M.state.bufs.tabs_buf, 0, -1, false, {}) -- Clear buffer
 
-        local tab_line = ""
+        local tab_line = " "
 
         for i, bufnr in ipairs(M.state.bufs.all_term) do
             local name = vim.api.nvim_buf_get_name(bufnr)
