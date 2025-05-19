@@ -18,14 +18,16 @@ If you find a bug, please do open an issue. I'll look into it.
 
 - Flominal is basically just a floating window working as a terminal.
 - I recommend you to use the keymap whether it's the default or your own.
+- You can toggle Flominal with `:Flominal` or with the keymap.
 - Buffer is saved automatically and reused, and can be cleaned with the
-    FlominalCleanup command or its keymap.
+    `:FlominalCleanup` command or its keymap.
 - When you open the window, either with the command or with the keymap, it
     automatically goes into terminal mode.
 
 ## Requirements
 
 - Neovim >= 0.7.0 (I'm not sure.)
+- [lazy.nvim](https://github.com/folke/lazy.nvim) (or any other plugin manager)
 
 ## Installation
 
