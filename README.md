@@ -1,29 +1,36 @@
 # Flominal
 
-This plugin provides a somewhat customizable floating terminal.
-Initially yanked from TJ DeVries. I'll work on it TJ, I promise :)
+This plugin provides a somewhat customizable, absolutely over-engineered
+floating window terminal.
+Initially yanked from [TJ DeVries](https://github.com/tjdevries)'s
+[video](https://www.youtube.com/watch?v=5PIiKDES_wc).
+I'll work on it TJ, I promise :)
 
 ## Features
 
 - Flominal is basically just a floating window working as a terminal.
 - You can create new tabs using `:Flominal new_tab` command or its keymap.
-- It has a separate window for a tab bar, which is placed on the top of the terminal.
+- It has a separate window for a tab bar, which is placed on the top of the
+    terminal.
 - On the tab bar, you can see the name of the tabs, and you can rename them via
     the `:Flominal rename_tab` command or its keymap.
 - You can switch between tabs using `:Flominal switch_tab` and just writing
-    the name of the tab you want to switch to. (This is problematic if there
-    are multiple tabs with the same name.)
+    the name of the tab you want to switch to. (This may be problematic if
+    there are multiple tabs with the same name.)
 - You can also switch between tabs using `:Flominal next_tab` and
     `:Flominal prev_tab` commands or their keymaps. Their default keymaps are
-    `<M-l>` and `<M-r>` respectively, because Dvorak.
-- You can close the current terminal tab using `:Flominal close_tab` command or its keymap.
-- Buffers are saved automatically and reused, and can be cleaned with `:Flominal cleanup` command or its keymap.
-- When you open the window, either with the command or with the keymap, it automatically goes into terminal mode.
+    `<M-u>` and `<M-e>` respectively, because Dvorak.
+- You can close the current terminal tab using `:Flominal close_tab` command
+    or its keymap.
+- Buffers are saved automatically and reused, and can be cleaned with
+    `:Flominal cleanup` command or its keymap.
+- When you open the window, either with the command or with the keymap, it
+    automatically goes into terminal mode.
 - I recommend you to use the keymaps whether they are the defaults or your own.
 
 ## Requirements
 
-- Neovim >= 0.7.0 (I may have missed some features, but I will try to keep it compatible with older versions)
+- Neovim >= 0.7.0 (I may be wrong.)
 - Lazy.nvim (or any other plugin manager)
 - No other dependencies, I do not like dependencies.
 
