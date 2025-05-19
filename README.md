@@ -74,6 +74,7 @@ However, PRs are always welcome.
 
 # TO-DO
 
+- [ ] Add documentation. Not that it needs it, but it would be nice to have.
 - [x] Check required minimum Neovim version.
 - [x] Add tab support. Check out the
     [main branch](https://github.com/jayshozie/Flominal.nvim/tree/main).
