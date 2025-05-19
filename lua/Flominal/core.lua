@@ -280,6 +280,7 @@ function M.switch_tab(buf_name_to_switch)
             print("Flominal: Tab not found, buffer number is invalid")
         end
     elseif buf_to_switch ~= nil and buf_to_switch ~= '' and type(buf_to_switch) == "string" then
+        print("Flominal: Searching for tab: " .. buf_to_switch)
         for _, bufnr in ipairs(M.state.bufs.all_term) do
             local name = vim.api.nvim_buf_get_name(bufnr)
             local display_name = name
@@ -292,6 +293,7 @@ function M.switch_tab(buf_name_to_switch)
                 break
             end
         end
+
         if type(buf_to_switch) == "number" and buf_to_switch ~= nil and buf_to_switch ~= '' then
             if vim.api.nvim_buf_is_valid(buf_to_switch) then
                 is_valid = true
