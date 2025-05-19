@@ -9,6 +9,8 @@ I'll work on it TJ, I promise :)
 ## Features
 
 - Flominal is basically just a floating window working as a terminal.
+- You can toggle Flominal with `:Flominal`, `:Flominal toggle` command or
+    its keymap.
 - You can create new tabs using `:Flominal new_tab` command or its keymap.
 - It has a separate window for a tab bar, which is placed on the top of the
     terminal.
