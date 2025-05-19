@@ -1,4 +1,4 @@
-# Flominal
+# Flominal Legacy
 
 This plugin provides a somewhat customizable floating terminal.
 Initially yanked from [TJ DeVries](https://github.com/tjdevries)'s 
