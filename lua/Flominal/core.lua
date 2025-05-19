@@ -282,7 +282,7 @@ function M.switch_tab(buf_name_to_switch)
     elseif buf_to_switch ~= nil and buf_to_switch ~= '' and type(buf_to_switch) == "string" then
         print("Flominal: Searching for tab: " .. buf_to_switch)
         vim.wait(2000)
-        print("Flominal: Searching tab in all buffers: " .. M.state.bufs.all_term)
+        print("Flominal: Searching tab in all buffers: " .. vim.inspect(M.state.bufs.all_term))
         vim.wait(2000)
         for _, bufnr in ipairs(M.state.bufs.all_term) do
             local name = vim.api.nvim_buf_get_name(bufnr)
