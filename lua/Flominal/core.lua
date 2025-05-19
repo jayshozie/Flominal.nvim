@@ -259,6 +259,8 @@ function M.new_tab()
 end
 
 function M.switch_tab(buf_name_to_switch)
+    -- I'm pretty sure this could be better, but it works and I don't want to
+    -- spend more time on it.
     buf_name_to_switch = buf_name_to_switch or nil
 
     local buf_to_switch = nil
