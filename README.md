@@ -112,7 +112,6 @@ Every file in this repository is licensed under the MIT License. Check the [LICE
 This is more like a personal coding project for me.
 So, mostly I'm trying to write it myself.
 However, PRs are always welcome. 
-If you would like to help me implement tab support, please let me know so that we can brainstorm about it.
 
 # TO-DO
 
