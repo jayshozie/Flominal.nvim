@@ -1,7 +1,18 @@
 # Flominal
 
 This plugin provides a somewhat customizable floating terminal.
-Initially stolen from TJ DeVries. I'll work on it TJ, I promise :)
+Initially yanked from [TJ DeVries](https://github.com/tjdevries)'s 
+[video](https://www.youtube.com/watch?v=5PIiKDES_wc).
+I'll work on it TJ, I promise :)
+
+## About Legacy Version
+
+This is the legacy version of Flominal, which does NOT support tabbing.
+If you want tab functionality take a look at the
+[main branch](https://github.com/jayshozie/Flominal.nvim/tree/main).
+This version should be faster but is not maintained anymore. Well it's not like
+it needs maintenance.
+If you find a bug, please do open an issue. I'll look into it.
 
 ## Features
 
@@ -12,7 +23,7 @@ Initially stolen from TJ DeVries. I'll work on it TJ, I promise :)
 
 ## Requirements
 
-- Neovim >= 0.11.1 (didn't check for previous versions, I'll update this)
+- Neovim >= 0.7.0 (I'm not sure.)
 
 ## Installation
 
@@ -21,7 +32,7 @@ Initially stolen from TJ DeVries. I'll work on it TJ, I promise :)
 ```lua
 return {
     'jayshozie/Flominal.nvim',
-    branch = 'main',
+    branch = 'legacy',
     opts  = {},
 }
 ```
@@ -50,17 +61,17 @@ Use either the command or the keymap to toggle the floating window of Flominal.
 
 ## License
 
-Every file in this repository is licensed under the MIT license. Check the [LICENSE](LICENSE) file for more details.
+Every file in this repository is licensed under the MIT license. Check the
+[LICENSE](LICENSE) file for more details.
 
 ## Contributions
 
 This is more like a personal coding project for me.
 So, mostly I'm trying to write it myself.
 However, PRs are always welcome. 
-If you would like to help me implement tab support, please let me know so that we can brainstorm about it.
 
 # TO-DO
 
-- [ ] Check required minimum Neovim version.
-- [ ] Add tab support.
+- [x] Check required minimum Neovim version.
+- [x] Add tab support. Check out the [main branch](https://github.com/jayshozie/Flominal.nvim/tree/main).
 - [x] Add configuration options.
