@@ -18,8 +18,10 @@ If you find a bug, please do open an issue. I'll look into it.
 
 - Flominal is basically just a floating window working as a terminal.
 - I recommend you to use the keymap whether it's the default or your own.
-- Buffer is saved automatically and reused, and can be cleaned with the FlominalCleanup command or its keymap.
-- When you open the window, either with the command or with the keymap, it automatically goes into terminal mode.
+- Buffer is saved automatically and reused, and can be cleaned with the
+    FlominalCleanup command or its keymap.
+- When you open the window, either with the command or with the keymap, it
+    automatically goes into terminal mode.
 
 ## Requirements
 
@@ -39,15 +41,15 @@ return {
 
 ## Configuration
 
-Flominal comes with the following defaults:
+Flominal, version legacy, comes with the following defaults.
 
 ```lua
 {
     width = 0.6, -- 60% of the screen
     height = 0.6, -- 60% of the screen
-    border = "rounded",
+    border = "rounded", -- "single", "double", "shadow", "rounded", "solid", or "none"
     command_name = "Flominal", -- Yes, you can change the name of the command.
-    keymap = "<M-n>", -- Defaults to <M-n> (Alt+n)
+    keymap = "<M-n>",
     keymap_desc = "Toggle Flominal",
     cleanup_command_name = "FlominalClear", -- Yes, you can change the clear command, too.
     cleanup_keymap = "<M-c>",
@@ -73,5 +75,6 @@ However, PRs are always welcome.
 # TO-DO
 
 - [x] Check required minimum Neovim version.
-- [x] Add tab support. Check out the [main branch](https://github.com/jayshozie/Flominal.nvim/tree/main).
+- [x] Add tab support. Check out the
+    [main branch](https://github.com/jayshozie/Flominal.nvim/tree/main).
 - [x] Add configuration options.
