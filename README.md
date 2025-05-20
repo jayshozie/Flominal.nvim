@@ -134,11 +134,11 @@ However, PRs are always welcome.
 
 # TO-DO
 
-- [ ] Add documentation.
 - [ ] Make the switch_tab command accept relative tab numbers, instead of bufnrs.
     Also this would be a good time to implement a way to see the tab numbers.
 - [ ] Add mouse support (maybe).
 - [ ] Add a way to scroll the tab bar.
+- [x] Add documentation.
 - [x] Check minimum required Neovim version.
 - [x] Add tab support.
 - [x] Add configuration options.
