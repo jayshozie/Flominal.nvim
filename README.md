@@ -62,48 +62,32 @@ return {
 
 ## Configuration
 
-Flominal comes with the following defaults:
+Flominal comes with the following defaults, please check the documentation
+for more details:
 
 ```lua
 -- Flominal/core.lua
 {
     Flominal = {
-        width = 0.6, -- This should be in the range (0.0, 1.0)
-        height = 0.6, -- This should be in the range (0.0, 1.0)
+        width = 0.6,
+        height = 0.6,
         border = 'rounded',
-        -- Border options are, 'none', 'single', 'double', 'rounded', 'solid', 'shadow'
-        -- These are the default options for floating windows in Neovim.
         title = "Flominal",
         -- Yes you can change this too, if you want to.
-        tab_name_length = 20, -- In characters
-        -- This is the maximum length of the tab name, so that you can see all
-        -- the tabs in the tab bar. If you plan to use a lot of tabs, you
-        -- can decrease this value. I have not implemented a way for the tab
-        -- bar to scroll, so if you have a lot of tabs, you will not be able to
-        -- see all of them. I will implement this in the future.
+        tab_name_length = 20,
+        -- This is how many characters before tabline truncates it.
     },
     commands = {
-        -- These are the commands that you can use to open Flominal.
-        -- I do not recommend you to use new_tab for toggling the window, since
-        -- it checks whether the window is open or not, and if it isn't then
-        -- it doesn't do anything.
-        -- You can toggle with :Flominal, then you can add whichever command
-        -- you want from the command list to execute.
-        -- Example: :Flominal new_tab
         toggle = "Flominal",
         new_tab = "new_tab",
         rename_tab = "rename_tab",
-        switch_tab = "switch_tab", -- This is the command to switch between tabs.
-        next_tab = "next_tab", -- Yes this also circles back to the first tab.
-        prev_tab = "prev_tab", -- Yes this also circles back to the last tab.
-        close_tab = "close_tab", -- Only works if a tab is open/on the screen.
+        switch_tab = "switch_tab",
+        next_tab = "next_tab",
+        prev_tab = "prev_tab",
+        close_tab = "close_tab",
         cleanup = "cleanup",
     },
     keymaps = {
-        -- These are the keymaps that you can use to interact with Flominal.
-        -- I do not recommend you to use the commands for that, because it
-        -- is not as convenient as using the keymaps, sorry couldn't think of
-        -- a better/shorter name for the plugin.
         k_toggle = "<M-n>",
         k_new_tab = "<M-N>",
         k_rename_tab = "<M-r>",
@@ -128,9 +112,8 @@ Check the [LICENSE](LICENSE) file for more details.
 
 ## Contributions
 
-This is more like a personal coding project for me.
-So, mostly I'm trying to write it myself.
-However, PRs are always welcome. 
+This is more like a personal coding project for me. So, mostly I'm trying to do
+everything myself; however, PRs are, and always will be, welcome. 
 
 # TO-DO
 
