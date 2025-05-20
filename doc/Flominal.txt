@@ -211,7 +211,7 @@ border ~
     tabline window and the terminal. This is the same as the built-in
     winborder option.
 
-    Available optoins are:
+    Available options are:
     - "rounded" (default)
     - "double"
     - "single"
