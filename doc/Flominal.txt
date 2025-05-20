@@ -174,9 +174,8 @@ selection for you, you can change these in your configuration.
 `:Flominal close_tab` .................. <M-c> ~
 `:Flominal cleanup` .................... <M-C> ~
 
-If you want to change these, which I think you do, here is an example of how
-you can do that (this is for lazy.nvim, but it would be almost exactly the
-same with any other package manager):
+To see how to change them, please check |FlominalSetup| and
+|FlominalOptionsKeymaps| sections.
 
 ==============================================================================
 05. Options                                                  *FlominalOptions*
@@ -190,18 +189,18 @@ These change how your Flominal looks like.
 					       *FlominalOptionsFlominal.width*
 width ~
     This configures the default width of the floating window of the terminal.
-    This is the same as the built-in 'winheight' option. It's value represents
-    the percentage of your screen which the floating window of Flominal will
-    occupy, and should be between 0.0 and 1.0.
+    It's value represents the percentage of your screen length which the
+    floating window of Flominal will occupy, and should be between 0.0 and
+    1.0.
 
     Default : 0.6
 
 					      *FlominalOptionsFlominal.height*
 height ~
     This configures the default height of the floating window of the terminal.
-    This is the same as the built-in winheight option. It's value represents
-    the percentage of your screen which the floating window of Flominal will
-    occupy, and should be between 0.0 and 1.0.
+    It's value represents the percentage of your screen height which the
+    floating window of Flominal will occupy, and should be between 0.0 and
+    1.0.
 
     Default : 0.6
 
@@ -209,7 +208,7 @@ height ~
 border ~
     This configures the default border type of the floating window of both the
     tabline window and the terminal. This is the same as the built-in
-    winborder option.
+    border option.
 
     Available options are:
     - "rounded" (default)
@@ -244,23 +243,20 @@ main starting point `Flominal`.
 
 					      *FlominalOptionsCommands.toggle*
 toggle ~
-
-    This configures the command used to toggle the floating window of Flominal.
-    The value should be a string.
+    This configures the command used to toggle the floating window of
+    Flominal. The value should be a string.
     
     Default : `Flominal` OR `Flominal toggle`
 
 					     *FlominalOptionsCommands.new_tab*
 new_tab ~
-    
-    This configures the command used to create a new tab. The value should be a
-    string.
+    This configures the command used to create a new tab. The value should be
+    a string.
 
     Default : `new_tab`
 
 					  *FlominalOptionsCommands.rename_tab*
 rename_tab ~
-
     This configures the command used to rename the open tab. The value should
     be a string.
 
@@ -268,7 +264,6 @@ rename_tab ~
 
 					  *FlominalOptionsCommands.switch_tab*
 switch_tab ~
-
     This configures the command used to switch to a tab. The value should be a
     string.
 
@@ -276,7 +271,6 @@ switch_tab ~
 
 					    *FlominalOptionsCommands.next_tab*
 next_tab ~
-
     This configures the command used to switch to the next tab. The value
     should be a string.
 
@@ -284,7 +278,6 @@ next_tab ~
 
 					    *FlominalOptionsCommands.prev_tab*
 prev_tab ~
-
     This configures the command used to switch to the previous tab. The value
     should be a string.
 
@@ -292,7 +285,6 @@ prev_tab ~
 
 					   *FlominalOptionsCommands.close_tab*
 close_tab ~
-
     This configures the command used to close the tab. The value should be a
     string.
 
@@ -300,7 +292,6 @@ close_tab ~
 
 					     *FlominalOptionsCommands.cleanup*
 cleanup ~
-
     This configures the command used to cleanup the tab. The value should be a
     string.
 
