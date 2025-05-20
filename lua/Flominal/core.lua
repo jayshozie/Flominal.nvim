@@ -212,8 +212,12 @@ function M.rename_tab(buf_to_rename)
     if buf_to_rename ~= nil and buf_to_rename ~= '' and vim.api.nvim_buf_is_valid(buf_to_rename) then
         local old_buf_name = vim.api.nvim_buf_get_name(buf_to_rename)
         local new_buf_name = vim.fn.input(old_buf_name .. " -> ")
-        vim.api.nvim_buf_set_name(buf_to_rename, new_buf_name)
-        M.init_tabs(M.state.wins.tabs)
+        if new_buf_name == '' or new_buf_name == nil then
+            vim.notify("Flominal: Tab name cannot be empty.", vim.log.levels.WARN)
+        else
+            vim.api.nvim_buf_set_name(buf_to_rename, new_buf_name)
+            M.init_tabs(M.state.wins.tabs)
+        end
     else
         vim.notify("Flominal: Error while renaming the tab.", vim.log.levels.WARN)
     end

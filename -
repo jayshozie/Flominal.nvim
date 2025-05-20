@@ -453,61 +453,13 @@ prev_tab() ~
     the {all_term} list, circles back if the term_current is the first tab in
     the {all_term} list. Requires the existence of multiple tabs.
 
-					       *FlominalFunctions.close_tab()*
-close_tab() ~
-    Deletes the buffer stored in term_current var, calls 
-    |FlominalFunctions.next_tab()| if there are more than one tab before
-    deletion, calls |FlominalFunctions.cleanup()| if there is only a single
-    tab before deletion. Requires the tab to be open
-    
-    - Note:
-      - This function does not work as intended right now, since if the window
-	is only toggled off the var term_current does not change.
-	
-						 *FlominalFunctions.cleanup()*
-cleanup() ~
-    Checks if the tabline window and any other terminal windows are valid, if
-    yes then closes all and deletes all buffers. If no then deletes all
-    buffers. Clears all lists and vars in both cases.
-
-						   *FlominalFunctions.setup()*
-setup({user_options}) ~
-    Setup function of Flominal. To learn how to set the plugin up, please
-    check |FlominalSetup|. To see default values, please check
-    |FlominalOptions|. To learn more about those please check their individual
-    sections.
-
-    Usage : ~
-	Please check |FlominalSetup| for default setup.
-
-    Parameters : ~
-	Valid keys for {user_options}. Please check |FlominalOptions|.
-
 ==============================================================================
-07. License                                                  *FlominalLicense*
+License
 
 MIT License
 Copyright (c) 2025 Emir Baha Yıldırım
 See LICENSE file for details.
 
-==============================================================================
-08. Bugs                                                        *FlominalBugs*
-
-This section is for known, unfixed bugs. It is empty, for now.
-
-==============================================================================
-09. Contributing                                        *FlominalContributing*
-
-This is more of a coding project for me, so I will try to most of the things
-myself; however, PRs are, and always will be, welcome. You can open up an
-issue about anything, if you think you can help you're, as I said, are more
-than welcome to open up a PR. Thank you for considering.
-
-==============================================================================
-10. Changelog                                              *FlominalChangelog*
-
-I don't think I will use this section extensively. Probably only put new
-important features and versions.
-
-
 vim:tw=78:ts=8:noet:ft=help:norl:
+
+
