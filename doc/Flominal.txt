@@ -309,14 +309,14 @@ k_toggle ~
 
     Default : <M-n>
 
-					     *FlominalOptionsKeymaps.k_toggle*
+					    *FlominalOptionsKeymaps.k_new_tab*
 k_new_tab ~
     This configures the keymap used to create a new tab. The value should be a
     keymap.
 
     Default : <M-N>
 
-					 *FLominalOptionsKeymaps.k_rename_tab*
+					 *FlominalOptionsKeymaps.k_rename_tab*
 k_rename_tab ~
     This configures the keymap used to rename the open tab. The value should be
     a keymap.
