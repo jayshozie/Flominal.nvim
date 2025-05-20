@@ -95,7 +95,7 @@ it, but after you do that, you can clear all buffers with this:
 <
 And that's all of them. It may be a bit overwhelming or you might think, "That
 was it?", either way I think you should check their corresponding keymaps in
-*FlominalKeymaps*.
+|FlominalKeymaps|.
 
 ==============================================================================
 03. Setup                                                      *FlominalSetup*
