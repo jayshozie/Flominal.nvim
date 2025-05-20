@@ -27,9 +27,9 @@ simple.
 - You can switch between tabs using `:Flominal switch_tab` and just writing
     the name of the tab you want to switch to. (This may be problematic if
     there are multiple tabs with the same name.)
-- You can also switch between tabs using `:Flominal next_tab` and
-    `:Flominal prev_tab` commands or their keymaps. Their default keymaps are
-    `<M-u>` and `<M-e>` respectively, because Dvorak.
+- You can also switch between tabs using `:Flominal prev_tab` and
+    `:Flominal next_tab` commands or their keymaps. Their default keymaps are
+    `<M-u>` and `<M-e>` respectively, because dvorak.
 - You can close the current terminal tab using `:Flominal close_tab` command
     or its keymap.
 - Buffers are saved automatically and reused, and can be cleaned with
@@ -134,8 +134,9 @@ However, PRs are always welcome.
 
 # TO-DO
 
-- [ ] Make the switch_tab command accept relative tab numbers, instead of bufnrs.
-    Also this would be a good time to implement a way to see the tab numbers.
+- [ ] Make the switch_tab command accept relative tab numbers, instead of
+    bufnrs. Also this would be a good time to implement a way to see the tab
+    numbers.
 - [ ] Add mouse support (maybe).
 - [ ] Add a way to scroll the tab bar.
 - [x] Add documentation.
