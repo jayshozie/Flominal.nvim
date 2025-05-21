@@ -4,6 +4,7 @@
 
 -- core.lua
 
+-- Entry point for Flominal
 local M = {}
 
 -- Defaults
@@ -54,6 +55,7 @@ M.state = {
 
 -- Deep merge helper
 local function merge_defaults(defaults, overrides)
+    -- Helper function to merge defaults with overrides
     if not overrides then return defaults end
     for key, value in pairs(overrides) do
         if type(value) == "table" and type(defaults[key]) == "table" then
@@ -66,6 +68,7 @@ local function merge_defaults(defaults, overrides)
 end
 
 function M.indexOf(array, value)
+    -- Helper function to find the index of a value in an array
     for i, v in ipairs(array) do
         if v == value then
             return i
@@ -106,7 +109,7 @@ local function open(term_buf, tabs_buf)
         M.state.bufs.tabs_buf = tabs_buf
     end
 
-    -- Define window configuration
+    -- Define the terminal window configuration
     M.term_win_config = {
         relative = "editor",
         width = term_width,
@@ -121,12 +124,12 @@ local function open(term_buf, tabs_buf)
     local term_win = vim.api.nvim_open_win(term_buf, true, M.term_win_config)
     M.state.wins.terminal = term_win
 
+    -- Define the tabs window configuration
     M.tabs_win_config = {
         relative = "win",
         win = M.state.wins.terminal,
         width = tabs_width,
         height = tabs_height,
-        -- focusable = false,
         anchor = "NW",
         row = -4,
         col = -1,
@@ -147,6 +150,7 @@ local function open(term_buf, tabs_buf)
 end
 
 function M.init_tabs(win)
+    -- Initialize the tabs window
     if vim.api.nvim_win_is_valid(win) then
         vim.api.nvim_buf_set_lines(M.state.bufs.tabs_buf, 0, -1, false, {}) -- Clear buffer
 
@@ -179,6 +183,7 @@ function M.init_tabs(win)
 end
 
 function M.init_terminal(win, buf)
+    -- Initialize the terminal window
     if vim.api.nvim_win_is_valid(win) then
         if vim.bo[buf].buftype ~= 'terminal' then
             vim.api.nvim_set_current_win(win)
@@ -194,6 +199,7 @@ function M.init_terminal(win, buf)
 end
 
 function M.rename_tab(buf_to_rename)
+    -- Renames the buffer of the current tab
     buf_to_rename = buf_to_rename or M.state.bufs.term_current
     if type(buf_to_rename) == "string" and buf_to_rename ~= nil and buf_to_rename ~= '' then
         for i, bufnr in ipairs(M.state.bufs.all_term) do
@@ -224,6 +230,7 @@ function M.rename_tab(buf_to_rename)
 end
 
 function M.toggle()
+    -- Toggles the terminal and tabs windows
     if M.state.bufs.term_current ~= nil and M.state.bufs.tabs_buf ~= nil then
         if vim.api.nvim_win_is_valid(M.state.wins.terminal) and vim.api.nvim_win_is_valid(M.state.wins.tabs) then
             vim.api.nvim_win_hide(M.state.wins.terminal)
@@ -247,6 +254,7 @@ function M.toggle()
 end
 
 function M.new_tab()
+    -- Initializes a new buffer and calls the open function with said bufnr
     if vim.api.nvim_win_is_valid(M.state.wins.terminal) and vim.api.nvim_win_is_valid(M.state.wins.tabs) then
         local new_buf = vim.api.nvim_create_buf(true, false)
         table.insert(M.state.bufs.all_term, new_buf)
@@ -265,6 +273,7 @@ end
 function M.switch_tab(buf_name_to_switch)
     -- I'm pretty sure this could be better, but it works and I don't want to
     -- spend more time on it.
+    -- Switches to the tab with the given name or bufnr
     buf_name_to_switch = buf_name_to_switch or nil
 
     local buf_to_switch = nil
@@ -320,16 +329,22 @@ function M.switch_tab(buf_name_to_switch)
         if vim.api.nvim_win_is_valid(M.state.wins.terminal) and vim.api.nvim_win_is_valid(M.state.wins.tabs) then
             vim.api.nvim_win_hide(M.state.wins.terminal)
             vim.api.nvim_win_hide(M.state.wins.tabs)
+
             M.state.bufs.last_term_buf = M.state.bufs.term_current
             M.state.bufs.term_current = buf_to_switch
+
             open(M.state.bufs.term_current, M.state.bufs.tabs_buf)
+
             M.init_terminal(M.state.wins.terminal, M.state.bufs.term_current)
             M.init_tabs(M.state.wins.tabs)
         elseif vim.api.nvim_buf_is_valid(M.state.bufs.term_current) and vim.api.nvim_buf_is_valid(M.state.bufs.tabs_buf) and
             not vim.api.nvim_win_is_valid(M.state.wins.terminal) and not vim.api.nvim_win_is_valid(M.state.wins.tabs) then
+
             M.state.bufs.last_term_buf = M.state.bufs.term_current
             M.state.bufs.term_current = buf_to_switch
+
             open(M.state.bufs.term_current, M.state.bufs.tabs_buf)
+
             M.init_terminal(M.state.wins.terminal, M.state.bufs.term_current)
             M.init_tabs(M.state.wins.tabs)
         else
@@ -341,6 +356,7 @@ function M.switch_tab(buf_name_to_switch)
 end
 
 function M.next_tab()
+    -- Switches to the next tab
     if #M.state.bufs.all_term <= 1 then
         vim.notify("Flominal: No next tab", vim.log.levels.WARN)
     else
@@ -360,6 +376,7 @@ function M.next_tab()
 end
 
 function M.prev_tab()
+    -- Switches to the previous tab
     if #M.state.bufs.all_term <= 1 then
         vim.notify("Flominal: No previous tab", vim.log.levels.WARN)
     else
@@ -379,6 +396,7 @@ function M.prev_tab()
 end
 
 function M.close_tab()
+    -- Clears the current tab's buffer and window
     if vim.api.nvim_win_is_valid(M.state.wins.terminal) then
         if #M.state.bufs.all_term < 1 then
             vim.notify("Flominal: No tab available.")
@@ -398,6 +416,7 @@ function M.close_tab()
 end
 
 function M.cleanup()
+    -- Clears all buffers and windows
     if vim.api.nvim_win_is_valid(M.state.wins.terminal) and vim.api.nvim_win_is_valid(M.state.wins.tabs) then
         vim.api.nvim_win_close(M.state.wins.terminal, true)
         vim.api.nvim_win_close(M.state.wins.tabs, true)
