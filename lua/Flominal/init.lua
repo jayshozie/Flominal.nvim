@@ -9,6 +9,7 @@ local core = require("Flominal.core")
 local M = {}
 
 function M.setup(user_options)
+    -- Calls the core setup function with the provided user options
     core.setup(user_options)
 end
 
