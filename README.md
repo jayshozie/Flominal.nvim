@@ -1,4 +1,4 @@
-# Flominal
+# Flominal.nvim
 
 This plugin provides a somewhat customizable, absolutely over-engineered
 floating window terminal.
