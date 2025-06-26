@@ -36,7 +36,6 @@ M.options = {
         k_close_tab = "<M-c>",
         k_cleanup = "<M-C>",
     },
-
 }
 
 -- Flominal's state
